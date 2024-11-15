@@ -37,8 +37,8 @@ export default function Navbar() {
                 alt="GoMealSaver"
                 priority
               />
-              <span className="hidden md:block text-white text-2xl font-bold">
-                GO Meal Saver
+              <span className="hidden md:block text-white text-xl font-bold">
+                GOMealSaver
               </span>
             </Link>
           </div>
