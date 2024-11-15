@@ -1,0 +1,102 @@
+[
+  {
+    "_id": "1",
+    "name": "Chicken Rice Bowl",
+    "cuisine": "Asian Cuisine",
+    "description": "Delicious chicken rice bowl with fresh vegetables",
+    "price": 8.5,
+    "discountPercentage": 50,
+    "originalPrice": 17.0,
+    "portionSize": "2 portions",
+    "timeRemaining": "30 mins",
+    "restaurant": {
+      "name": "Asian Kitchen Restaurant",
+      "address": "123 Asian Street, Downtown",
+      "city": "Singapore",
+      "state": "SG",
+      "phone": "555-0123"
+    },
+    "image": "1.png",
+    "available": true
+  },
+  {
+    "_id": "2",
+    "name": "Pizza Margherita",
+    "cuisine": "Italian Cuisine",
+    "description": "Classic Neapolitan pizza with fresh mozzarella",
+    "price": 12.0,
+    "discountPercentage": 40,
+    "originalPrice": 20.0,
+    "portionSize": "1 whole pizza",
+    "timeRemaining": "45 mins",
+    "restaurant": {
+      "name": "Luigi's Pizzeria",
+      "address": "456 Italian Avenue, West Side",
+      "city": "Rome",
+      "state": "RM",
+      "phone": "555-0124"
+    },
+    "image": "2.webp",
+    "available": true
+  },
+  {
+    "_id": "3",
+    "name": "Sushi Platter",
+    "cuisine": "Japanese Cuisine",
+    "description": "Fresh sushi selection with premium fish",
+    "price": 15.0,
+    "discountPercentage": 45,
+    "originalPrice": 27.27,
+    "portionSize": "12 pieces",
+    "timeRemaining": "20 mins",
+    "restaurant": {
+      "name": "Sakura Sushi",
+      "address": "789 Japan Street, East District",
+      "city": "Tokyo",
+      "state": "TK",
+      "phone": "555-0125"
+    },
+    "image": "3.jpeg",
+    "available": true
+  },
+  {
+    "_id": "4",
+    "name": "Pad Thai",
+    "cuisine": "Thai Cuisine",
+    "description": "Traditional Thai noodles with shrimp",
+    "price": 10.0,
+    "discountPercentage": 35,
+    "originalPrice": 15.38,
+    "portionSize": "1 portion",
+    "timeRemaining": "25 mins",
+    "restaurant": {
+      "name": "Thai Delight",
+      "address": "321 Thai Road, North District",
+      "city": "Bangkok",
+      "state": "BK",
+      "phone": "555-0126"
+    },
+    "image": "4.jpg",
+    "available": true
+  },
+  {
+    "_id": "5",
+    "name": "Butter Chicken",
+    "cuisine": "Indian Cuisine",
+    "description": "Creamy curry with tender chicken",
+    "price": 11.5,
+    "discountPercentage": 30,
+    "originalPrice": 16.43,
+    "portionSize": "2 portions",
+    "timeRemaining": "35 mins",
+    "restaurant": {
+      "name": "Taj Mahal Restaurant",
+      "address": "567 Curry Lane, South Side",
+      "city": "Mumbai",
+      "state": "MH",
+      "phone": "555-0127"
+    },
+    "image": "5.jpg",
+    "available": true
+  }
+]
