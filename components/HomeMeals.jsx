@@ -44,11 +44,17 @@ export default function HomeMealsPage() {
               <div className="border border-gray-100 mb-5"></div>
 
               <div className="flex flex-col lg:flex-row justify-between mb-4">
-                <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-                  <i className="fa-solid fa-location-dot text-lg text-green-700"></i>
-                  <span className="text-green-700">
-                    Asian Kitchen Restaurant
-                  </span>
+                <div className="flex flex-col gap-1">
+                  <div className="flex align-middle gap-2">
+                    <i className="fa-solid fa-location-dot text-lg text-green-700"></i>
+                    <span className="text-green-700">
+                      Asian Kitchen Restaurant
+                    </span>
+                  </div>
+                  <div className="flex align-middle gap-2 text-gray-500 text-sm">
+                    <i className="fa-solid fa-map-marker-alt"></i>
+                    <span>123 Asian Street, Downtown</span>
+                  </div>
                 </div>
                 <a
                   href="/meals/1"
@@ -96,9 +102,15 @@ export default function HomeMealsPage() {
               <div className="border border-gray-100 mb-5"></div>
 
               <div className="flex flex-col lg:flex-row justify-between mb-4">
-                <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-                  <i className="fa-solid fa-location-dot text-lg text-green-700"></i>
-                  <span className="text-green-700">Luigi's Pizzeria</span>
+                <div className="flex flex-col gap-1">
+                  <div className="flex align-middle gap-2">
+                    <i className="fa-solid fa-location-dot text-lg text-green-700"></i>
+                    <span className="text-green-700">Luigi's Pizzeria</span>
+                  </div>
+                  <div className="flex align-middle gap-2 text-gray-500 text-sm">
+                    <i className="fa-solid fa-map-marker-alt"></i>
+                    <span>456 Italian Avenue, West Side</span>
+                  </div>
                 </div>
                 <a
                   href="/meals/2"
@@ -146,9 +158,15 @@ export default function HomeMealsPage() {
               <div className="border border-gray-100 mb-5"></div>
 
               <div className="flex flex-col lg:flex-row justify-between mb-4">
-                <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-                  <i className="fa-solid fa-location-dot text-lg text-green-700"></i>
-                  <span className="text-green-700">Sakura Sushi</span>
+                <div className="flex flex-col gap-1">
+                  <div className="flex align-middle gap-2">
+                    <i className="fa-solid fa-location-dot text-lg text-green-700"></i>
+                    <span className="text-green-700">Sakura Sushi</span>
+                  </div>
+                  <div className="flex align-middle gap-2 text-gray-500 text-sm">
+                    <i className="fa-solid fa-map-marker-alt"></i>
+                    <span>789 Japan Street, East District</span>
+                  </div>
                 </div>
                 <a
                   href="/meals/3"
