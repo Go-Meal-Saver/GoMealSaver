@@ -9,6 +9,20 @@
     "originalPrice": 17.0,
     "portionSize": "2 portions",
     "timeRemaining": "30 mins",
+    "features": [
+      "Halal Certified",
+      "Eco-Friendly Packaging",
+      "Contactless Pickup",
+      "Reheating Instructions",
+      "Utensils Included",
+      "Nutritional Info",
+      "Spice Level Adjustable",
+      "Fresh Ingredients",
+      "Temperature Controlled",
+      "Last Minute Deal",
+      "Quick Pickup",
+      "Best Value"
+    ],
     "restaurant": {
       "name": "Asian Kitchen Restaurant",
       "address": "123 Asian Street, Downtown",
@@ -29,6 +43,20 @@
     "originalPrice": 20.0,
     "portionSize": "1 whole pizza",
     "timeRemaining": "45 mins",
+    "features": [
+      "Vegetarian",
+      "Wood-Fired",
+      "Authentic Recipe",
+      "Fresh Ingredients",
+      "Family Size",
+      "Eco-Friendly Box",
+      "Reheating Instructions",
+      "Temperature Controlled",
+      "Local Favorite",
+      "Daily Special",
+      "Food Waste Prevention",
+      "Community Support"
+    ],
     "restaurant": {
       "name": "Luigi's Pizzeria",
       "address": "456 Italian Avenue, West Side",
@@ -37,66 +65,6 @@
       "phone": "555-0124"
     },
     "image": "2.webp",
-    "available": true
-  },
-  {
-    "_id": "3",
-    "name": "Sushi Platter",
-    "cuisine": "Japanese Cuisine",
-    "description": "Fresh sushi selection with premium fish",
-    "price": 15.0,
-    "discountPercentage": 45,
-    "originalPrice": 27.27,
-    "portionSize": "12 pieces",
-    "timeRemaining": "20 mins",
-    "restaurant": {
-      "name": "Sakura Sushi",
-      "address": "789 Japan Street, East District",
-      "city": "Tokyo",
-      "state": "TK",
-      "phone": "555-0125"
-    },
-    "image": "3.jpeg",
-    "available": true
-  },
-  {
-    "_id": "4",
-    "name": "Pad Thai",
-    "cuisine": "Thai Cuisine",
-    "description": "Traditional Thai noodles with shrimp",
-    "price": 10.0,
-    "discountPercentage": 35,
-    "originalPrice": 15.38,
-    "portionSize": "1 portion",
-    "timeRemaining": "25 mins",
-    "restaurant": {
-      "name": "Thai Delight",
-      "address": "321 Thai Road, North District",
-      "city": "Bangkok",
-      "state": "BK",
-      "phone": "555-0126"
-    },
-    "image": "4.jpg",
-    "available": true
-  },
-  {
-    "_id": "5",
-    "name": "Butter Chicken",
-    "cuisine": "Indian Cuisine",
-    "description": "Creamy curry with tender chicken",
-    "price": 11.5,
-    "discountPercentage": 30,
-    "originalPrice": 16.43,
-    "portionSize": "2 portions",
-    "timeRemaining": "35 mins",
-    "restaurant": {
-      "name": "Taj Mahal Restaurant",
-      "address": "567 Curry Lane, South Side",
-      "city": "Mumbai",
-      "state": "MH",
-      "phone": "555-0127"
-    },
-    "image": "5.jpg",
     "available": true
   }
 ]
