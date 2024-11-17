@@ -2,9 +2,8 @@ import SearchMeals from './SearchMeals';
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-green-700 to-green-900 py-24 lg:py-32">
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-
+    <section className="relative  py-24 lg:py-32">
+      <div className="absolute inset-0 bg-green-900  "></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-8 animate-fadeIn">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
