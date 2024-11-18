@@ -1,4 +1,4 @@
-import MealsCard from './Mealscard';
+import MealsCard from './MealsCard';
 
 export default function HomeMealsPage() {
   return (

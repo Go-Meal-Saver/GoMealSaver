@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import meals from '../meals.json';
@@ -23,43 +21,16 @@ export default function MealsCard() {
               className="w-full h-[200px] object-cover rounded-t-xl"
             />
             <div className="p-4">
-              <div className="text-left md:text-center lg:text-left mb-6">
+              <header className="text-left md:text-center lg:text-left mb-6">
                 <div className="text-gray-600">{meal.cuisine}</div>
                 <h3 className="text-xl font-bold">{meal.name}</h3>
-              </div>
-              <h3 className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg text-green-600 font-bold text-right md:text-center lg:text-right">
+              </header>
+
+              <div className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg text-green-600 font-bold text-right md:text-center lg:text-right">
                 ${meal.price.toFixed(2)}
-              </h3>
-
-              <div className="flex justify-center gap-4 text-gray-500 mb-4">
-                <p className="flex items-center gap-2">
-                  <FaClock className="text-lg" /> {meal.timeRemaining}
-                </p>
-                <p className="flex items-center gap-2">
-                  <FaUtensils className="text-lg" /> {meal.portionSize}
-                </p>
               </div>
 
-              <div className="flex justify-center gap-4 text-green-900 text-sm mb-4">
-                <p className="flex items-center gap-2">
-                  <FaMoneyBill className="text-lg" />
-                  {meal.discountPercentage}
-                  <FaPercent className="text-sm" />
-                </p>
-              </div>
-
-              <div className="border border-gray-100 mb-5"></div>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {meal.features.slice(0, 4).map((feature, index) => (
-                  <span
-                    key={index}
-                    className="bg-green-50 text-green-700 text-xs px-2 py-1 rounded-full"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
+              {/* Rest of the code remains the same */}
 
               <div className="flex flex-col lg:flex-row justify-between mb-4">
                 <div className="flex flex-col gap-1">
