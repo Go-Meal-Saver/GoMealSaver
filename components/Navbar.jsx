@@ -205,7 +205,7 @@ export default function Navbar() {
             </Link>
             {session && (
               <Link
-                href="/add-meal"
+                href="/meals/add"
                 className="text-white hover:text-green-200 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Add Meal
@@ -294,7 +294,7 @@ export default function Navbar() {
           </Link>
           {session && (
             <Link
-              href="/add-meal"
+              href="/meals/add"
               className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
             >
               Add Meal
