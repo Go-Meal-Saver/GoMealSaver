@@ -1,4 +1,3 @@
-// app/actions/addMeals.js
 'use server';
 
 import connectDB from '@/config/database';

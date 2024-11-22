@@ -102,11 +102,11 @@ export default function Navbar() {
                 Profile
               </Link>
               <Link
-                href="/settings"
+                href="/meals/saved"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
                 onClick={() => setIsAuthMenuOpen(false)}
               >
-                Settings
+                saved Meals
               </Link>
               <button
                 onClick={handleSignOut}
