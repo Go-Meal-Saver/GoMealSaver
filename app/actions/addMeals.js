@@ -1,12 +1,11 @@
 'use server';
 
-import connectDB from '@/config/database';
-import Meal from '@/models/Meals';
-import { getSessionUser } from '@/utils/getSessionUser';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import cloudinary from '@/config/cloudinary';
-
+import connectDB from '@/config/database';
+import Meal from '@/models/Meals';
+import { getSessionUser } from '@/utils/getSessionUser';
 async function addMeals(formData) {
   try {
     await connectDB();
