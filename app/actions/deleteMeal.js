@@ -1,8 +1,9 @@
 'use server';
+import { revalidatePath } from 'next/cache';
 import cloudinary from '@/config/cloudinary';
 import Meal from '@/models/Meals';
 import { getSessionUser } from '@/utils/getSessionUser';
-import { revalidatePath } from 'next/cache';
+
 export default async function deleteMeal(MealId) {
   const sessionUser = await getSessionUser();
 

@@ -12,8 +12,10 @@ export default function Hero() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-xl md:text-2xl text-gray-200 font-light">
-            Transform yesterday's meals into today's delights. Save money while
-            enjoying tasty, sustainable food options.
+            {
+              // eslint-disable-next-line quotes
+              "Transform yesterday's meals into today's delights. Save money while enjoying tasty, sustainable food options."
+            }
           </p>
 
           <div className="mt-8 flex justify-center space-x-4">

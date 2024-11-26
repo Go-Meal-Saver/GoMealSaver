@@ -1,9 +1,9 @@
 'use server';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import connectDB from '@/config/database';
 import Meal from '@/models/Meals';
-import { revalidatePath } from 'next/cache';
 import { getSessionUser } from '@/utils/getSessionUser';
-import { redirect } from 'next/navigation';
 
 export default async function updateMeal(MealId, formData) {
   await connectDB();

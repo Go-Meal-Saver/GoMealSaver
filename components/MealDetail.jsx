@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FaClock, FaUtensils, FaStore, FaStar } from 'react-icons/fa';
+import { FaClock, FaUtensils, FaStore } from 'react-icons/fa';
 
 export default function MealDetail({ meal }) {
   return (

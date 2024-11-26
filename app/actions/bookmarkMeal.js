@@ -1,8 +1,8 @@
 'use server';
+import { revalidatePath } from 'next/cache';
 import connectDB from '@/config/database';
 import User from '@/models/User';
 import { getSessionUser } from '@/utils/getSessionUser';
-import { revalidatePath } from 'next/cache';
 
 async function bookmarkMeal(mealId) {
   await connectDB();
