@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaClock, FaUtensils } from 'react-icons/fa';
+import { FaMoneyBill, FaClock, FaUtensils, FaPercent } from 'react-icons/fa';
 import { FaLocationArrow, FaMapLocation } from 'react-icons/fa6';
 
 export default function MealCard({ meal }) {
