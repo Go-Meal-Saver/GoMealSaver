@@ -11,6 +11,7 @@
   "dependencies": {
     "@maptiler/sdk": "^2.4.2",
     "cloudinary": "^2.5.1",
+    "lucide-react": "^0.461.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.3",
     "mongose": "^0.0.2-security",

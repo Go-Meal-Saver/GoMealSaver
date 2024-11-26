@@ -8,6 +8,7 @@ import { convertToSerializedObject } from '@/utils/convertToObject';
 import MealsHeaderImage from '@/components/MealsHeaderImage';
 import BookmarkButton from '@/components/BookmarkButton';
 import ShareButton from '@/components/ShareButton';
+import MealContactForm from '@/components/MealContactForm';
 
 export default async function MealPage({ params }) {
   await connectDB();
@@ -69,6 +70,7 @@ export default async function MealPage({ params }) {
                 <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
                   <BookmarkButton meal={meal} />
                   <ShareButton meal={meal} />
+                  <MealContactForm meal={meal} />
                 </div>
               </aside>
             </div>
