@@ -10,7 +10,7 @@ const MessagesPage = async () => {
 
   const { userId } = sessionUser;
 
-  const readMessages = Message.find({ recipient: userId, read: true })
+  const readMessages = await Message.find({ recipient: userId, read: true })
     .sort({ createdAt: -1 })
     .populate('sender', 'username')
     .populate('meal', 'name')
@@ -19,7 +19,11 @@ const MessagesPage = async () => {
   const unReadMessages = await Message.find({
     recipient: userId,
     read: false,
-  });
+  })
+    .sort({ createdAt: -1 })
+    .populate('sender', 'username')
+    .populate('meal', 'name')
+    .lean();
 
   // Convert to serializable object so we can pass to client component.
   const messages = [...unReadMessages, ...readMessages].map((messageDoc) => {
