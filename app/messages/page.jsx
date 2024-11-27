@@ -1,7 +1,6 @@
 import connectDB from '@/config/database';
 import Message from '@/models/Message';
 import MessageCard from '@/components/MessageCard';
-import Meal from '@/models/Meal';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { convertToSerializedObject } from '@/utils/convertToObject';
 
