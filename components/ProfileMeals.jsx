@@ -101,7 +101,7 @@ export default function ProfileMeals({ meals: initialMeals }) {
         <div className="text-center py-12">
           <p className="text-gray-500">No meals added yet</p>
           <Link
-            href="/meals/new"
+            href="/meals/add"
             className="mt-4 inline-block bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors duration-200"
           >
             Add Your First Meal
