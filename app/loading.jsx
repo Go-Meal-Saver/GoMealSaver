@@ -7,7 +7,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '60vh', // Adjust based on your needs
+    minHeight: '60vh',
     padding: '20px',
   },
   spinner: {
