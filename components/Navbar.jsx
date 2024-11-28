@@ -9,6 +9,8 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
+import LoginForm from './LoginForm';
+import Container from './ContainerLogin';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -16,9 +18,11 @@ export default function Navbar() {
   const profileImage = session?.user?.image || profileDefault;
   const [providers, setProviders] = useState(null);
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const authMenuRef = useRef(null);
+  const loginModalRef = useRef(null);
 
   // Handle navbar background on scroll
   useEffect(() => {
@@ -38,11 +42,17 @@ export default function Navbar() {
     setAuthProviders();
   }, []);
 
-  // Handle click outside of auth menu
+  // Handle click outside of auth menu and login modal
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (authMenuRef.current && !authMenuRef.current.contains(event.target)) {
         setIsAuthMenuOpen(false);
+      }
+      if (
+        loginModalRef.current &&
+        !loginModalRef.current.contains(event.target)
+      ) {
+        setIsLoginModalOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -51,7 +61,10 @@ export default function Navbar() {
 
   // Handle window resize
   useEffect(() => {
-    const handleResize = () => setIsMobileMenuOpen(false);
+    const handleResize = () => {
+      setIsMobileMenuOpen(false);
+      setIsLoginModalOpen(false);
+    };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -107,7 +120,7 @@ export default function Navbar() {
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
                 onClick={() => setIsAuthMenuOpen(false)}
               >
-                saved Meals
+                Saved Meals
               </Link>
               <button
                 onClick={handleSignOut}
@@ -124,32 +137,105 @@ export default function Navbar() {
     return (
       <div className="relative" ref={authMenuRef}>
         <button
-          onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}
+          onClick={() => {
+            setIsLoginModalOpen(true);
+            setIsAuthMenuOpen(false);
+          }}
           className="hidden md:flex items-center space-x-2 bg-white text-green-800 px-4 py-2 rounded-full hover:bg-green-100 transition-all duration-300"
         >
           <span>Login</span>
         </button>
 
-        {isAuthMenuOpen && providers && (
-          <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50">
-            {Object.values(providers).map((provider) => {
-              const Icon = providerIcons[provider.id.toLowerCase()];
-              return (
-                <button
-                  key={provider.id}
-                  onClick={() => {
-                    signIn(provider.id, {
-                      callbackUrl: pathname,
-                    });
-                    setIsAuthMenuOpen(false);
-                  }}
-                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
+        {isLoginModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60]">
+            <Container>
+              <button
+                onClick={() => setIsLoginModalOpen(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  {Icon && <Icon className="w-5 h-5 mr-2" />}
-                  Sign in with {provider.name}
-                </button>
-              );
-            })}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <div className="flex items-center justify-center mb-6">
+                <Image
+                  className="w-8 h-8 mr-2"
+                  src={logo}
+                  alt="GOMealSaver Logo"
+                  priority
+                />
+                <span className="text-2xl font-semibold text-gray-900">
+                  GOMealSaver
+                </span>
+              </div>
+              <LoginForm />
+              {providers && (
+                <div className="space-y-4">
+                  {Object.values(providers).map((provider) => {
+                    const Icon = providerIcons[provider.id.toLowerCase()];
+                    return (
+                      <button
+                        key={provider.id}
+                        onClick={() => {
+                          signIn(provider.id, {
+                            callbackUrl: pathname,
+                          });
+                          setIsLoginModalOpen(false);
+                        }}
+                        className="flex items-center justify-center w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                      >
+                        {Icon && <Icon className="w-5 h-5 mr-2" />}
+                        Sign in with {provider.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+              <div className="flex items-center justify-between">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
+                    <input
+                      id="remember"
+                      aria-describedby="remember"
+                      type="checkbox"
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300"
+                    />
+                  </div>
+                  <div className="ml-3 text-sm">
+                    <label htmlFor="remember" className="text-gray-500">
+                      Remember me
+                    </label>
+                  </div>
+                </div>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-green-600 hover:underline"
+                >
+                  Forgot password?
+                </a>
+              </div>
+              <p className="text-sm font-light text-gray-500">
+                {' Dont have an account yet? '}
+                <a
+                  href="#"
+                  className="font-medium text-green-600 hover:underline"
+                >
+                  Sign up
+                </a>
+              </p>
+            </Container>
           </div>
         )}
       </div>
@@ -288,44 +374,69 @@ export default function Navbar() {
           <Link
             href="/"
             className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             Home
           </Link>
           <Link
             href="/meals"
             className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             Meals
           </Link>
           {session && (
-            <Link
-              href="/meals/add"
-              className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-            >
-              Add Meal
-            </Link>
+            <>
+              <Link
+                href="/meals/add"
+                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Add Meal
+              </Link>
+              <Link
+                href="/profile"
+                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Profile
+              </Link>
+              <Link
+                href="/meals/saved"
+                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Saved Meals
+              </Link>
+              <Link
+                href="/messages"
+                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Messages
+              </Link>
+              <button
+                onClick={() => {
+                  handleSignOut();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="block w-full text-left text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+              >
+                Sign Out
+              </button>
+            </>
           )}
-          {!session && providers && (
-            <div className="space-y-2">
-              {Object.values(providers).map((provider) => {
-                const Icon = providerIcons[provider.id.toLowerCase()];
-                return (
-                  <button
-                    key={provider.id}
-                    onClick={() => {
-                      signIn(provider.id, {
-                        callbackUrl: pathname,
-                      });
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="flex items-center w-full justify-center bg-white text-green-800 px-4 py-2 rounded-full hover:bg-green-100 transition-all duration-300"
-                  >
-                    {Icon && <Icon className="w-5 h-5 mr-2" />}
-                    Sign in with {provider.name}
-                  </button>
-                );
-              })}
-            </div>
+
+          {!session && (
+            <button
+              onClick={() => {
+                setIsLoginModalOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
+            >
+              Login
+            </button>
           )}
         </div>
       </div>
