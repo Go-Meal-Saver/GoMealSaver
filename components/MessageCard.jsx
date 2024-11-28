@@ -1,21 +1,32 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import markMessageAsRead from '@/app/actions/markMessage';
 import deleteMessage from '@/app/actions/deletMessage';
 import replyToMessage from '@/app/actions/replyMessage';
 import { useGlobalContext } from '@/context/GlobalContext';
 
+// Toast configuration object
+const TOAST_CONFIG = {
+  position: 'top-right',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+};
+
+// Date formatter utility
 const formatDate = (date) => {
   const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  const seconds = String(d.getSeconds()).padStart(2, '0');
-
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  return d.toLocaleString('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
 };
 
 const MessageCard = ({ message }) => {
@@ -23,46 +34,74 @@ const MessageCard = ({ message }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isReply, setIsReply] = useState(false);
   const [replyMessage, setReplyMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { setUnreadCount } = useGlobalContext();
 
   const handleReadClick = async () => {
-    const read = await markMessageAsRead(message._id);
-    setIsRead(read);
-    setUnreadCount((prevCount) => (read ? prevCount - 1 : prevCount + 1));
-    toast.success(`Marked as ${read ? 'read' : 'new'}`);
-  };
-
-  const handleDeleteClick = async () => {
-    await deleteMessage(message._id);
-    setIsDeleted(true);
-    setUnreadCount((prevCount) => (isRead ? prevCount : prevCount - 1));
-    toast.success('Message Deleted');
-  };
-
-  const handleReplyClick = () => {
-    setIsReply(true);
-  };
-
-  const handleReplySubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('originalMessageId', message._id);
-    formData.append('replyMessage', replyMessage);
-
-    const result = await replyToMessage(formData);
-
-    if (result.error) {
-      toast.error(result.error);
-    } else if (result.success) {
-      toast.success('Reply sent successfully');
-      setIsReply(false);
-      setReplyMessage('');
+    try {
+      const read = await markMessageAsRead(message._id);
+      setIsRead(read);
+      setUnreadCount((prevCount) => (read ? prevCount - 1 : prevCount + 1));
+      toast.success(`Marked as ${read ? 'read' : 'new'}`, TOAST_CONFIG);
+    } catch (error) {
+      toast.error('Failed to mark message', TOAST_CONFIG);
     }
   };
 
-  if (isDeleted) {
-    return <p>Deleted message</p>;
-  }
+  const handleDeleteClick = async () => {
+    try {
+      await deleteMessage(message._id);
+      setIsDeleted(true);
+      setUnreadCount((prevCount) => (isRead ? prevCount : prevCount - 1));
+      toast.success('Message Deleted', TOAST_CONFIG);
+    } catch (error) {
+      toast.error('Failed to delete message', TOAST_CONFIG);
+    }
+  };
+
+  const handleReplySubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      if (isSubmitting) return;
+
+      const trimmedReply = replyMessage.trim();
+      if (!trimmedReply) {
+        toast.error('Reply message cannot be empty', TOAST_CONFIG);
+        return;
+      }
+
+      try {
+        setIsSubmitting(true);
+
+        // Add debounce/cooldown
+        // eslint-disable-next-line no-undef
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const formData = new FormData();
+        formData.append('originalMessageId', message._id);
+        formData.append('replyMessage', trimmedReply);
+
+        const result = await replyToMessage(formData);
+
+        if (result.error) {
+          toast.error(result.error, TOAST_CONFIG);
+          return;
+        }
+
+        toast.success('Reply sent successfully', TOAST_CONFIG);
+        setIsReply(false);
+        setReplyMessage('');
+      } catch (error) {
+        toast.error('Failed to send reply', TOAST_CONFIG);
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [message._id, replyMessage, isSubmitting]
+  );
+
+  if (isDeleted) return <p>Deleted message</p>;
 
   return (
     <div className="relative bg-white p-4 rounded-md shadow-md border border-gray-200">
@@ -71,44 +110,44 @@ const MessageCard = ({ message }) => {
           New
         </div>
       )}
+
       <h2 className="text-xl mb-4">
         <span className="font-bold">Meal Inquiry:</span> {message.meal.name}
       </h2>
+
       <p className="text-gray-700">{message.body}</p>
-      <ul className="mt-4">
-        <li>
-          <strong>Reply Name:</strong>{' '}
-          <a href={`mailto:${message.email}`} className="text-blue-500">
-            {message.name}
-          </a>
-        </li>
-        <li>
-          <strong>Reply Email:</strong>{' '}
-          <a href={`mailto:${message.email}`} className="text-blue-500">
-            {message.email}
-          </a>
-        </li>
-        <li>
-          <strong>Reply Phone:</strong>{' '}
-          <a href={`tel:${message.phone}`} className="text-blue-500">
-            {message.phone}
-          </a>
-        </li>
-        <li>
-          <strong>Received:</strong> {formatDate(message.createdAt)}
-        </li>
+
+      <ul className="mt-4 space-y-1">
+        {[
+          { label: 'Reply Name', value: message.name, type: 'email' },
+          { label: 'Reply Email', value: message.email, type: 'email' },
+          { label: 'Reply Phone', value: message.phone, type: 'tel' },
+          { label: 'Received', value: formatDate(message.createdAt) },
+        ].map(({ label, value, type }) => (
+          <li key={label}>
+            <strong>{label}:</strong>{' '}
+            {type ? (
+              <a href={`${type}:${value}`} className="text-blue-500">
+                {value}
+              </a>
+            ) : (
+              value
+            )}
+          </li>
+        ))}
       </ul>
+
       {!isReply ? (
-        <>
+        <div className="mt-4 space-x-3">
           <button
-            onClick={handleReplyClick}
-            className="mt-4 mr-3 bg-green-400 text-white py-1 px-3 rounded-md"
+            onClick={() => setIsReply(true)}
+            className="bg-green-400 text-white py-1 px-3 rounded-md"
           >
             Reply
           </button>
           <button
             onClick={handleReadClick}
-            className={`mt-4 mr-3 ${
+            className={`${
               isRead ? 'bg-gray-300' : 'bg-blue-500 text-white'
             } py-1 px-3 rounded-md`}
           >
@@ -116,11 +155,11 @@ const MessageCard = ({ message }) => {
           </button>
           <button
             onClick={handleDeleteClick}
-            className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md"
+            className="bg-red-500 text-white py-1 px-3 rounded-md"
           >
             Delete
           </button>
-        </>
+        </div>
       ) : (
         <form onSubmit={handleReplySubmit} className="mt-4">
           <textarea
@@ -130,20 +169,29 @@ const MessageCard = ({ message }) => {
             rows="4"
             placeholder="Type your reply here..."
             required
-          ></textarea>
-          <button
-            type="submit"
-            className="mt-2 bg-blue-500 text-white py-1 px-3 rounded-md"
-          >
-            Send Reply
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsReply(false)}
-            className="mt-2 ml-2 bg-gray-300 text-black py-1 px-3 rounded-md"
-          >
-            Cancel
-          </button>
+            disabled={isSubmitting}
+          />
+          <div className="mt-2 space-x-2">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`bg-blue-500 text-white py-1 px-3 rounded-md ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Reply'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsReply(false)}
+              disabled={isSubmitting}
+              className={`bg-gray-300 text-black py-1 px-3 rounded-md ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       )}
     </div>
