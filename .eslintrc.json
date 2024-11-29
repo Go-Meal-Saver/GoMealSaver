@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
   "extends": [
     "next/core-web-vitals",
@@ -37,3 +38,9 @@
     }
   }
 }
+=======
+{
+  "extends": "next/core-web-vitals",
+  "parser": "@babel/eslint-parser"
+}
+>>>>>>> Stashed changes
