@@ -4,8 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../assets/images/logo-remove.png';
 import profileDefault from '@/assets/images/profile.png';
-import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
-import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
@@ -14,9 +12,7 @@ import Container from './ContainerLogin';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
-  const pathname = usePathname();
   const profileImage = session?.user?.image || profileDefault;
-  const [providers, setProviders] = useState(null);
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,15 +27,6 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Get authentication providers
-  useEffect(() => {
-    const setAuthProviders = async () => {
-      const res = await getProviders();
-      setProviders(res);
-    };
-    setAuthProviders();
   }, []);
 
   // Handle click outside of auth menu and login modal
@@ -68,12 +55,6 @@ export default function Navbar() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const providerIcons = {
-    google: FaGoogle,
-    github: FaGithub,
-    facebook: FaFacebook,
-  };
 
   const handleSignOut = async () => {
     await signOut({ redirect: true, callbackUrl: '/' });
@@ -181,60 +162,6 @@ export default function Navbar() {
                 </span>
               </div>
               <LoginForm />
-              {providers && (
-                <div className="space-y-4">
-                  {Object.values(providers).map((provider) => {
-                    const Icon = providerIcons[provider.id.toLowerCase()];
-                    return (
-                      <button
-                        key={provider.id}
-                        onClick={() => {
-                          signIn(provider.id, {
-                            callbackUrl: pathname,
-                          });
-                          setIsLoginModalOpen(false);
-                        }}
-                        className="flex items-center justify-center w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      >
-                        {Icon && <Icon className="w-5 h-5 mr-2" />}
-                        Sign in with {provider.name}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-gray-500">
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-green-600 hover:underline"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <p className="text-sm font-light text-gray-500">
-                {' Dont have an account yet? '}
-                <a
-                  href="#"
-                  className="font-medium text-green-600 hover:underline"
-                >
-                  Sign up
-                </a>
-              </p>
             </Container>
           </div>
         )}
