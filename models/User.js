@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new Schema(
   {
     username: {
       type: String,
@@ -27,6 +27,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: '/assets/images/profile.png',
     },
+    bookmarks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'meals',
+      },
+    ],
     provider: {
       type: String,
       enum: ['credentials', 'google'],
@@ -42,4 +48,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+const User = models.User || model('User', UserSchema);
+
+export default User;
