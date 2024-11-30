@@ -2,29 +2,39 @@ import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
   {
-    email: {
+    username: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
+      minlength: 3,
+      maxlength: 20,
     },
-    username: {
+    email: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
       trim: true,
     },
     password: {
       type: String,
-      required: true,
+      required: function () {
+        return this.provider === 'credentials';
+      },
     },
     image: {
       type: String,
-      default: '',
+      default: '/assets/images/profile.png',
     },
-    bookmarks: {
-      type: [String],
-      default: [],
+    provider: {
+      type: String,
+      enum: ['credentials', 'google'],
+      default: 'credentials',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   {

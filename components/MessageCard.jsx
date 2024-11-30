@@ -112,7 +112,7 @@ const MessageCard = ({ message }) => {
       )}
 
       <h2 className="text-xl mb-4">
-        <span className="font-bold">Meal Inquiry:</span> {message.meal.name}
+        <span className="font-bold">Meal Inquiry:</span> {message.meal}
       </h2>
 
       <p className="text-gray-700">{message.body}</p>

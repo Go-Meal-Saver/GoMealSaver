@@ -50,7 +50,7 @@ export default function RegisterPage() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export default function RegisterPage() {
         if (result?.error) {
           throw new Error(result.error);
         }
-        router.push('/dashboard');
+        router.push('/');
       });
     } catch (error) {
       console.error('Registration error:', error);
