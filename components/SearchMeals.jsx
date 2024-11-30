@@ -1,16 +1,24 @@
 'use client';
 import { useState } from 'react';
 import { FiSearch, FiMapPin } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 export default function SearchMeals() {
   const [location, setLocation] = useState('');
   const [mealType, setMealType] = useState('All');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // Add your search logic here
+    if (location === '' && mealType === 'All') {
+      router.push('/meals');
+    } else {
+      const query = `?location=${location}&mealType=${mealType}`;
+      router.push(`/meals/search-results${query}`);
+    }
     setTimeout(() => setIsLoading(false), 1000);
   };
 
@@ -46,15 +54,11 @@ export default function SearchMeals() {
                      focus:ring-green-500 transition-all duration-300"
           >
             <option value="All">All Meals</option>
-            <option value="Main Course">Main Course</option>
-            <option value="Appetizer">Appetizer</option>
-            <option value="Soup">Soup</option>
-            <option value="Salad">Salad</option>
-            <option value="Side Dish">Side Dish</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Snack">Snack</option>
-            <option value="Beverage">Beverage</option>
+            <option value="Asian Cuisine">Asian Cuisine</option>
+            <option value="Italian Cuisine">Italian Cuisine</option>
+            <option value="Western Cuisine">Western Cuisine</option>
+            <option value="Local Delights">Local Delights</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 

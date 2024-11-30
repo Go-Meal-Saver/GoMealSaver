@@ -1,4 +1,3 @@
-// models/Meals.js
 import { Schema, model, models } from 'mongoose';
 
 const MealSchema = new Schema(
@@ -40,7 +39,7 @@ const MealSchema = new Schema(
       type: String,
       required: true,
     },
-    features: [String], // Simplified array definition
+    features: [String],
     restaurant: {
       name: String,
       address: String,
