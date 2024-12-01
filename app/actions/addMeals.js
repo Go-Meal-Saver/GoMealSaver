@@ -46,6 +46,14 @@ async function addMeals(formData) {
     available: true,
   };
 
+  // Validation
+  // if (!mealsData.name || !mealsData.price || !mealsData.restaurant.name) {
+  //   throw new Error('Missing required fields');
+  // }
+
+  // if (mealsData.price < 0 || mealsData.originalPrice < 0) {
+  //   throw new Error('Price cannot be negative');
+  // }
   // Upload images to cloudinary
   const imageUrls = [];
   for (const imageFile of images) {

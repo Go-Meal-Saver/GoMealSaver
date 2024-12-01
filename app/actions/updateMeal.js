@@ -40,7 +40,7 @@ export default async function updateMeal(MealId, formData) {
       phone: formData.get('restaurant.phone'),
       email: formData.get('restaurant.email'),
     },
-    available: true,
+    available: formData.get('available') === 'on',
   };
 
   const updatedMeal = await Meal.findByIdAndUpdate(MealId, mealsData);

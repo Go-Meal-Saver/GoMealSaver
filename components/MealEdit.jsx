@@ -55,6 +55,25 @@ export default function MealEditPage({ meal }) {
         ></textarea>
       </div>
 
+      {/* Availability Field */}
+      <div className="mb-4">
+        <label className="block text-gray-700 font-bold mb-2">
+          Meal Availability
+        </label>
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id="available"
+            name="available"
+            defaultChecked={meal.available}
+            className="mr-2"
+          />
+          <label htmlFor="available">Available for Sale</label>
+        </div>
+        <p className="text-sm text-gray-500 mt-1">
+          Uncheck if this meal is temporarily unavailable
+        </p>
+      </div>
       {/* Pricing and Portion */}
       <div className="mb-4 bg-green-50 p-4 rounded">
         <label className="block text-gray-700 font-bold mb-2">
@@ -118,7 +137,7 @@ export default function MealEditPage({ meal }) {
         <div className="mt-4">
           <label htmlFor="timeRemaining">Time Remaining</label>
           <input
-            type="text"
+            type="number"
             id="timeRemaining"
             name="timeRemaining"
             placeholder="eg. 30 mins"
