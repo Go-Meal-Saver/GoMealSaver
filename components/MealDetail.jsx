@@ -1,5 +1,11 @@
 import Image from 'next/image';
-import { FaClock, FaUtensils, FaStore, FaMapMarkerAlt } from 'react-icons/fa';
+import {
+  FaClock,
+  FaUtensils,
+  FaStore,
+  FaMapMarkerAlt,
+  FaTimes,
+} from 'react-icons/fa';
 import MealMap from './MealMap';
 
 export default function MealDetail({ meal }) {
@@ -17,9 +23,14 @@ export default function MealDetail({ meal }) {
               priority
               className="object-cover hover:scale-105 transition-transform duration-300"
             />
-            {meal.available && (
+            {/* Availability Tag */}
+            {meal.available ? (
               <div className="absolute top-4 left-4 bg-green-500 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wide">
                 Available Now
+              </div>
+            ) : (
+              <div className="absolute top-4 left-4 bg-red-500 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wide flex items-center gap-2">
+                <FaTimes /> Sold Out
               </div>
             )}
           </div>
@@ -60,21 +71,24 @@ export default function MealDetail({ meal }) {
               {meal.name}
             </h1>
           </div>
-
           {/* Pricing with Discount */}
-          <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-end gap-3">
-                <span className="text-3xl font-bold text-green-600">
-                  ${meal.price.toFixed(2)}
+          <div className="bg-gradient-to-br from-white to-gray-50 border border-gray-100 p-5 rounded-2xl text-center space-y-3 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-red-500 text-white px-3 py-1 rounded-bl-xl font-bold text-sm">
+              {meal.discountPercentage}% OFF
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex justify-center items-baseline space-x-3">
+                <span className="text-3xl font-bold text-emerald-600">
+                  Rp.{meal.price.toFixed(2)}
                 </span>
-                <span className="text-gray-400 line-through text-lg">
-                  ${meal.originalPrice.toFixed(2)}
+                <span className="text-gray-400 line-through text-lg opacity-70">
+                  Rp.{meal.originalPrice.toFixed(2)}
                 </span>
               </div>
-              <div className="bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold">
-                {meal.discountPercentage}% OFF
-              </div>
+              <p className="text-sm text-gray-500">
+                Hemat Rp.{(meal.originalPrice - meal.price).toFixed(2)}
+              </p>
             </div>
           </div>
 
@@ -90,6 +104,21 @@ export default function MealDetail({ meal }) {
               <FaUtensils className="text-lg" />
               <span className="font-medium">{meal.portionSize} Portion</span>
             </div>
+          </div>
+
+          {/* Availability Status */}
+          <div>
+            {meal.available ? (
+              <div className="bg-green-50 text-green-700 px-4 py-2 rounded-lg inline-flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                Available for Order
+              </div>
+            ) : (
+              <div className="bg-red-50 text-red-700 px-4 py-2 rounded-lg inline-flex items-center gap-2">
+                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                Currently Unavailable
+              </div>
+            )}
           </div>
 
           {/* Description */}

@@ -4,19 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../assets/images/logo-remove.png';
 import profileDefault from '@/assets/images/profile.png';
-import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
-import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
 import LoginForm from './LoginForm';
 import Container from './ContainerLogin';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
-  const pathname = usePathname();
   const profileImage = session?.user?.image || profileDefault;
-  const [providers, setProviders] = useState(null);
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,15 +27,6 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Get authentication providers
-  useEffect(() => {
-    const setAuthProviders = async () => {
-      const res = await getProviders();
-      setProviders(res);
-    };
-    setAuthProviders();
   }, []);
 
   // Handle click outside of auth menu and login modal
@@ -69,12 +56,6 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const providerIcons = {
-    google: FaGoogle,
-    github: FaGithub,
-    facebook: FaFacebook,
-  };
-
   const handleSignOut = async () => {
     await signOut({ redirect: true, callbackUrl: '/' });
     setIsAuthMenuOpen(false);
@@ -103,7 +84,7 @@ export default function Navbar() {
               height={32}
               className="rounded-full"
             />
-            <span className="hidden md:block">{session.user.name}</span>
+            <span className="hidden md:block">{session.user.username}</span>
           </button>
 
           {isAuthMenuOpen && (
@@ -181,60 +162,6 @@ export default function Navbar() {
                 </span>
               </div>
               <LoginForm />
-              {providers && (
-                <div className="space-y-4">
-                  {Object.values(providers).map((provider) => {
-                    const Icon = providerIcons[provider.id.toLowerCase()];
-                    return (
-                      <button
-                        key={provider.id}
-                        onClick={() => {
-                          signIn(provider.id, {
-                            callbackUrl: pathname,
-                          });
-                          setIsLoginModalOpen(false);
-                        }}
-                        className="flex items-center justify-center w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      >
-                        {Icon && <Icon className="w-5 h-5 mr-2" />}
-                        Sign in with {provider.name}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-300"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-gray-500">
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-green-600 hover:underline"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <p className="text-sm font-light text-gray-500">
-                {' Dont have an account yet? '}
-                <a
-                  href="#"
-                  className="font-medium text-green-600 hover:underline"
-                >
-                  Sign up
-                </a>
-              </p>
             </Container>
           </div>
         )}
@@ -270,14 +197,6 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <div className="relative">
-              <input
-                type="search"
-                placeholder="Search meals..."
-                className="w-64 px-4 py-2 rounded-full bg-green-600 text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-white"
-              />
-            </div>
-
             <Link
               href="/"
               className="text-white hover:text-green-200 px-3 py-2 text-sm font-medium transition-colors"
@@ -364,13 +283,6 @@ export default function Navbar() {
         }`}
       >
         <div className="px-4 py-2 space-y-3 bg-green-800">
-          <div className="relative mb-4">
-            <input
-              type="search"
-              placeholder="Search meals..."
-              className="w-full px-4 py-2 rounded-full bg-green-700 text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-          </div>
           <Link
             href="/"
             className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
@@ -393,27 +305,6 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Add Meal
-              </Link>
-              <Link
-                href="/profile"
-                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Profile
-              </Link>
-              <Link
-                href="/meals/saved"
-                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Saved Meals
-              </Link>
-              <Link
-                href="/messages"
-                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Messages
               </Link>
               <button
                 onClick={() => {

@@ -45,21 +45,19 @@ export default async function MealPage({ params }) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
         <MealsHeaderImage image={meal.image[0]} />
-        <section className="relative -mt-16">
-          <div className="container-xl lg:container mx-auto px-6">
-            <div className="bg-white/80 backdrop-blur-sm rounded-t-3xl shadow-lg p-6">
-              <Link
-                href="/meals"
-                className="inline-flex items-center px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors duration-200"
-              >
-                <FaArrowLeft className="mr-2" />
-                <span className="font-medium">Back to Meals</span>
-              </Link>
-            </div>
-          </div>
-        </section>
         <section>
           <div className="container mx-auto py-12 px-6">
+            <div className="container-xl lg:container mx-auto px-6">
+              <div className="p-6">
+                <Link
+                  href="/meals"
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors duration-200"
+                >
+                  <FaArrowLeft className="mr-2" />
+                  <span className="font-medium">Back to Meals</span>
+                </Link>
+              </div>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
                 <div className="bg-white rounded-2xl shadow-xl p-8">

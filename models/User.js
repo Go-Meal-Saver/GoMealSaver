@@ -2,14 +2,26 @@ import { Schema, model, models } from 'mongoose';
 
 const UserSchema = new Schema(
   {
-    email: {
-      type: String,
-      unique: [true, 'Email already exists'],
-      required: [true, 'Email is required'],
-    },
     username: {
       type: String,
-      required: [true, 'Username is required'],
+      required: true,
+      unique: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: function () {
+        return this.provider === 'credentials';
+      },
     },
     image: {
       type: String,
@@ -20,6 +32,15 @@ const UserSchema = new Schema(
         ref: 'meals',
       },
     ],
+    provider: {
+      type: String,
+      enum: ['credentials', 'google'],
+      default: 'credentials',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: true,

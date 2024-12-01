@@ -7,7 +7,7 @@ export default function MealsHeaderImage({ image }) {
         <Image
           src={image}
           alt=""
-          className=" object-cover h-[400px] w-full"
+          className=" object-cover h-[500px] w-full"
           width={0}
           height={0}
           sizes="100vw"

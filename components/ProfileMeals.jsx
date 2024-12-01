@@ -60,7 +60,7 @@ export default function ProfileMeals({ meals: initialMeals }) {
                   {meal.name}
                 </h3>
                 <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
-                  ${meal.price}
+                  Rp.{meal.price}
                 </span>
               </div>
 
