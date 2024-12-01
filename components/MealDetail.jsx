@@ -66,10 +66,10 @@ export default function MealDetail({ meal }) {
             <div className="flex items-center justify-between">
               <div className="flex items-end gap-3">
                 <span className="text-3xl font-bold text-green-600">
-                  ${meal.price.toFixed(2)}
+                  Rp.{meal.price.toFixed(2)}
                 </span>
                 <span className="text-gray-400 line-through text-lg">
-                  ${meal.originalPrice.toFixed(2)}
+                  Rp.{meal.originalPrice.toFixed(2)}
                 </span>
               </div>
               <div className="bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold">
