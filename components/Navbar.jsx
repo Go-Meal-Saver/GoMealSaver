@@ -5,7 +5,7 @@ import Image from 'next/image';
 import logo from '../assets/images/logo-remove.png';
 import profileDefault from '@/assets/images/profile.png';
 import { useState, useEffect, useRef } from 'react';
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
 import LoginForm from './LoginForm';
 import Container from './ContainerLogin';
@@ -84,7 +84,7 @@ export default function Navbar() {
               height={32}
               className="rounded-full"
             />
-            <span className="hidden md:block">{session.user.name}</span>
+            <span className="hidden md:block">{session.user.username}</span>
           </button>
 
           {isAuthMenuOpen && (
@@ -197,14 +197,6 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <div className="relative">
-              <input
-                type="search"
-                placeholder="Search meals..."
-                className="w-64 px-4 py-2 rounded-full bg-green-600 text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-white"
-              />
-            </div>
-
             <Link
               href="/"
               className="text-white hover:text-green-200 px-3 py-2 text-sm font-medium transition-colors"
@@ -291,13 +283,6 @@ export default function Navbar() {
         }`}
       >
         <div className="px-4 py-2 space-y-3 bg-green-800">
-          <div className="relative mb-4">
-            <input
-              type="search"
-              placeholder="Search meals..."
-              className="w-full px-4 py-2 rounded-full bg-green-700 text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-          </div>
           <Link
             href="/"
             className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
@@ -320,27 +305,6 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Add Meal
-              </Link>
-              <Link
-                href="/profile"
-                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Profile
-              </Link>
-              <Link
-                href="/meals/saved"
-                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Saved Meals
-              </Link>
-              <Link
-                href="/messages"
-                className="block text-white hover:bg-green-700 px-3 py-2 rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Messages
               </Link>
               <button
                 onClick={() => {
