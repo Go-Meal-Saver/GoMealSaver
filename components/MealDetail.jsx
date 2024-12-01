@@ -71,21 +71,24 @@ export default function MealDetail({ meal }) {
               {meal.name}
             </h1>
           </div>
-
           {/* Pricing with Discount */}
-          <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-end gap-3">
-                <span className="text-3xl font-bold text-green-600">
+          <div className="bg-gradient-to-br from-white to-gray-50 border border-gray-100 p-5 rounded-2xl text-center space-y-3 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-red-500 text-white px-3 py-1 rounded-bl-xl font-bold text-sm">
+              {meal.discountPercentage}% OFF
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex justify-center items-baseline space-x-3">
+                <span className="text-3xl font-bold text-emerald-600">
                   Rp.{meal.price.toFixed(2)}
                 </span>
-                <span className="text-gray-400 line-through text-lg">
+                <span className="text-gray-400 line-through text-lg opacity-70">
                   Rp.{meal.originalPrice.toFixed(2)}
                 </span>
               </div>
-              <div className="bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold">
-                {meal.discountPercentage}% OFF
-              </div>
+              <p className="text-sm text-gray-500">
+                Hemat Rp.{(meal.originalPrice - meal.price).toFixed(2)}
+              </p>
             </div>
           </div>
 
