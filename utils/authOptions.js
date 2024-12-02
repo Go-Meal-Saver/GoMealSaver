@@ -19,8 +19,7 @@ export const authOptions = {
         },
       },
     }),
-
-    // Credentials Provider
+    // Credentials Provider for Email/Password Login
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -36,27 +35,49 @@ export const authOptions = {
         // Connect to database
         await connectDB();
 
-        // Find user
-        const user = await User.findOne({ email: credentials.email });
-        if (!user) {
-          throw new Error('No user found with this email');
+        // Check if this is a registration or login attempt
+        const existingUser = await User.findOne({ email: credentials.email });
+
+        // Registration flow
+        if (!existingUser) {
+          try {
+            // Hash the password
+            const hashedPassword = await bcrypt.hash(credentials.password, 10);
+
+            // Create new user
+            const newUser = await User.create({
+              email: credentials.email,
+              password: hashedPassword,
+              username: credentials.email.split('@')[0], // Use email prefix as username
+            });
+
+            return {
+              id: newUser._id.toString(),
+              email: newUser.email,
+              username: newUser.username,
+            };
+          } catch (error) {
+            throw new Error('Registration failed: ' + error.message);
+          }
         }
 
-        // Validate password
+        // Login flow
+        // Validate password for existing user
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
-          user.password
+          existingUser.password
         );
+
         if (!isPasswordValid) {
           throw new Error('Invalid password');
         }
 
         // Return user object
         return {
-          id: user._id.toString(),
-          email: user.email,
-          username: user.username,
-          image: user.image,
+          id: existingUser._id.toString(),
+          email: existingUser.email,
+          username: existingUser.username,
+          image: existingUser.image,
         };
       },
     }),
@@ -64,13 +85,13 @@ export const authOptions = {
 
   // Callbacks
   callbacks: {
-    // Handle sign-in (especially for OAuth)
-    async signIn({ account, profile }) {
+    // Handle sign-in for both OAuth and Credentials
+    async signIn({ account, profile, user }) {
       try {
         await connectDB();
 
         // Handle Google OAuth sign-in
-        if (account.provider === 'google') {
+        if (account?.provider === 'google') {
           const userExists = await User.findOne({ email: profile.email });
 
           // Create user if not exists
@@ -79,6 +100,7 @@ export const authOptions = {
               .slice(0, 20)
               .toLowerCase()
               .replace(/\s/g, '');
+
             await User.create({
               email: profile.email,
               username: username,
@@ -86,6 +108,7 @@ export const authOptions = {
             });
           }
         }
+
         return true;
       } catch (error) {
         console.error('Error in signIn callback:', error);
@@ -100,11 +123,13 @@ export const authOptions = {
 
         // Find user and add additional details to session
         const user = await User.findOne({ email: session.user.email });
+
         if (user) {
           session.user.id = user._id.toString();
           session.user.username = user.username;
           session.user.image = user.image;
         }
+
         return session;
       } catch (error) {
         console.error('Error in session callback:', error);
@@ -112,9 +137,9 @@ export const authOptions = {
       }
     },
 
-    // JWT callback
+    // JWT callback to add user information to token
     async jwt({ token, user, account, profile }) {
-      // Add user ID to token
+      // Add user information to token during sign-in
       if (user) {
         token.id = user.id;
         token.username = user.username;
@@ -133,3 +158,5 @@ export const authOptions = {
     signIn: '/', // Redirect to home page for sign-in
   },
 };
+
+export default NextAuth(authOptions);

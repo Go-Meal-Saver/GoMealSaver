@@ -4,24 +4,16 @@ const UserSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      minlength: 3,
-      maxlength: 20,
+      required: [true, 'Username is required'],
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
+      unique: [true, 'Email already exists'],
+      required: [true, 'Email is required'],
     },
     password: {
       type: String,
-      required: function () {
-        return this.provider === 'credentials';
-      },
+      required: false,
     },
     image: {
       type: String,
