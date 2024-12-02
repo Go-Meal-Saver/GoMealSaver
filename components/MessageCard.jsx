@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable no-undef */
 import React, { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import markMessageAsRead from '@/app/actions/markMessage';
@@ -62,7 +63,6 @@ const MessageCard = ({ message }) => {
   const handleReplySubmit = useCallback(
     async (e) => {
       e.preventDefault();
-
       if (isSubmitting) return;
 
       const trimmedReply = replyMessage.trim();
@@ -73,16 +73,11 @@ const MessageCard = ({ message }) => {
 
       try {
         setIsSubmitting(true);
-
-        // Add debounce/cooldown
-        // eslint-disable-next-line no-undef
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        const formData = new FormData();
-        formData.append('originalMessageId', message._id);
-        formData.append('replyMessage', trimmedReply);
-
-        const result = await replyToMessage(formData);
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
+        const result = await replyToMessage({
+          originalMessageId: message._id,
+          replyMessage: trimmedReply,
+        });
 
         if (result.error) {
           toast.error(result.error, TOAST_CONFIG);
@@ -112,14 +107,15 @@ const MessageCard = ({ message }) => {
       )}
 
       <h2 className="text-xl mb-4">
-        <span className="font-bold">Meal Inquiry:</span> {message.meal}
+        <span className="font-bold">Meal Inquiry:</span>{' '}
+        {message.meal?.name || 'No Meal'}
       </h2>
 
       <p className="text-gray-700">{message.body}</p>
 
       <ul className="mt-4 space-y-1">
         {[
-          { label: 'Reply Name', value: message.name, type: 'email' },
+          { label: 'Reply Name', value: message.name },
           { label: 'Reply Email', value: message.email, type: 'email' },
           { label: 'Reply Phone', value: message.phone, type: 'tel' },
           { label: 'Received', value: formatDate(message.createdAt) },
