@@ -73,11 +73,11 @@ const MessageCard = ({ message }) => {
 
       try {
         setIsSubmitting(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
-        const result = await replyToMessage({
-          originalMessageId: message._id,
-          replyMessage: trimmedReply,
-        });
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const formData = new FormData();
+        formData.append('originalMessageId', message._id);
+        formData.append('replyMessage', trimmedReply);
+        const result = await replyToMessage(formData);
 
         if (result.error) {
           toast.error(result.error, TOAST_CONFIG);
