@@ -5,14 +5,20 @@ export async function middleware(req) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const path = req.nextUrl.pathname;
 
-  const protectedRoutes = [
-    '/meals/add',
-    '/profile',
-    '/meals/saved',
-    '/messages',
+  // Pattern to match routes with IDs
+  const protectedIdRoutes = [
+    '/meals/',
+    '/profile/',
+    '/meals/saved/',
+    '/messages/',
   ];
 
-  if (protectedRoutes.includes(path) && !token) {
+  // Check if path starts with any protected route pattern
+  const isProtectedRoute = protectedIdRoutes.some((route) =>
+    path.startsWith(route)
+  );
+
+  if (isProtectedRoute && !token) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
 
@@ -20,5 +26,10 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/meals/add', '/profile', '/meals/saved', '/messages'],
+  matcher: [
+    '/meals/:path*',
+    '/profile/:path*',
+    '/meals/saved/:path*',
+    '/messages/:path*',
+  ],
 };
