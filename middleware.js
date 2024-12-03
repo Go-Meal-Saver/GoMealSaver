@@ -8,9 +8,9 @@ export async function middleware(req) {
   // Pattern to match routes with IDs
   const protectedIdRoutes = [
     '/meals/',
-    '/profile/',
+    '/profile',
     '/meals/saved/',
-    '/messages/',
+    '/messages',
   ];
 
   // Check if path starts with any protected route pattern
@@ -28,8 +28,9 @@ export async function middleware(req) {
 export const config = {
   matcher: [
     '/meals/:path*',
-    '/profile/:path*',
+    '/profile',
     '/meals/saved/:path*',
     '/messages/:path*',
+    '/messages',
   ],
 };

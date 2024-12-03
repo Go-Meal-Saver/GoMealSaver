@@ -6,10 +6,15 @@ import profileDefault from '@/assets/images/profile.png';
 import ProfileMeals from '@/components/ProfileMeals';
 import { convertToSerializedObject } from '@/utils/convertToObject';
 import { FaEnvelope, FaUser, FaUtensils } from 'react-icons/fa';
+import { redirect } from 'next/navigation';
 
 export default async function ProfilePage() {
   await connectDB();
   const sessionUser = await getSessionUser();
+
+  if (!sessionUser) {
+    redirect('/login');
+  }
   const { userId } = sessionUser;
 
   if (!userId) {
