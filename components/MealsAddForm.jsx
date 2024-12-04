@@ -1,9 +1,31 @@
 'use client';
+import { useState } from 'react';
 import addMeals from '@/app/actions/addMeals';
+import { debounce } from 'lodash';
 
 export default function MealAddForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Debounce the submit handler to prevent multiple rapid submissions
+  const debouncedSubmit = debounce(async (formData) => {
+    try {
+      setIsSubmitting(true);
+      await addMeals(formData);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, 500); // 500ms delay
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    await debouncedSubmit(formData);
+  };
+
   return (
-    <form action={addMeals} className="max-w-4xl mx-auto p-6">
+    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6">
       <h2 className="text-3xl text-center font-semibold mb-6">Add New Meal</h2>
 
       {/* Basic Meal Info */}
@@ -251,10 +273,20 @@ export default function MealAddForm() {
 
       <div>
         <button
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline relative"
           type="submit"
+          disabled={isSubmitting}
         >
-          Add Meal
+          {isSubmitting ? (
+            <>
+              <span className="opacity-0">Add Meal</span>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            </>
+          ) : (
+            'Add Meal'
+          )}
         </button>
       </div>
     </form>
