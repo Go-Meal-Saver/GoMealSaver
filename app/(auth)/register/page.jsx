@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const captchaRef = useRef(null);
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -46,6 +48,17 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
 
+    // Validate token captcha
+
+    const token = await captchaRef.current.getValue();
+
+    // validasi captcha
+
+    if (!token) {
+      setError('Please complete the captcha');
+      return;
+    }
+
     if (!validateForm()) return;
 
     setIsLoading(true);
@@ -59,6 +72,7 @@ export default function RegisterPage() {
           email: formData.email,
           username: formData.username,
           password: formData.password,
+          captchaToken: token,
         }),
       });
 
@@ -188,6 +202,13 @@ export default function RegisterPage() {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="••••••••"
               />
+
+              <ReCAPTCHA
+                ref={captchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              />
+
+              {error && <p className="error">{error}</p>}
             </div>
           </div>
 

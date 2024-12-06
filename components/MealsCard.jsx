@@ -23,10 +23,10 @@ export default function MealCard({ meal }) {
         <div className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg shadow-sm">
           <div className="flex flex-col items-end">
             <div className="text-green-600 font-bold text-xl">
-              Rp.{meal.price.toFixed(2)}
+              Rp.{meal.price.toFixed(3)}
             </div>
             <div className="text-gray-400 text-sm line-through">
-              Rp.{meal.originalPrice.toFixed(2)}
+              Rp.{meal.originalPrice.toFixed(3)}
             </div>
             <div className="text-red-500 text-sm font-medium">
               -{meal.discountPercentage}% OFF
