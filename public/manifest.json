@@ -1,0 +1,21 @@
+{
+  "name": "Go Meal Saver",
+  "short_name": "GoMealSaver",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "../assets/manifest/logo_192.jpg"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "../assets/manifest/logo_512.jpg"
+    }
+  ]
+}

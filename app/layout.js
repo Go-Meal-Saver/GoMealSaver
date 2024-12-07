@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar.jsx';
 import AuthProvider from '@/components/AuthProvider';
 import Footer from '@/components/Footer';
 import { GlobalProvider } from '@/context/GlobalContext';
+import Head from 'next/head';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -29,6 +30,17 @@ export default function RootLayout({ children }) {
     <AuthProvider>
       <GlobalProvider>
         <html lang="en">
+          <Head>
+            <meta name="application-name" content="GoMealSaver" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta
+              name="apple-mobile-web-app-status-bar-style"
+              content="default"
+            />
+            <meta name="theme-color" content="#ffffff" />
+            <link rel="manifest" href="../public/manifest.json" />
+            <link rel="apple-touch-icon" href="../assets/images/logo.jpg" />
+          </Head>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
