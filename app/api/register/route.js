@@ -8,8 +8,31 @@ export async function POST(request) {
     // Ensure database connection
     await connectDB();
 
+    if (request.method !== 'POST') {
+      return NextResponse.json(
+        { message: 'Method not allowed' },
+        { status: 405 }
+      );
+    }
+
     // Parse request body
-    const { username, email, password } = await request.json();
+    const { username, email, password, captchaToken } = await request.json();
+
+    // Verifikasi reCAPTCHA
+    const captchaResponse = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captchaToken}`,
+      { method: 'POST' }
+    );
+
+    const captchaResult = await captchaResponse.json();
+
+    // Cek validitas captcha
+    if (!captchaResult.success) {
+      return NextResponse.json(
+        { message: 'Verifikasi captcha gagal' },
+        { status: 400 }
+      );
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({
