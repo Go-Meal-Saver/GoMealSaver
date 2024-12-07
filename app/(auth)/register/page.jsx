@@ -204,6 +204,7 @@ export default function RegisterPage() {
               />
 
               <ReCAPTCHA
+                className="pt-4"
                 ref={captchaRef}
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
               />
