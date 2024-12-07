@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import deleteMeal from '@/app/actions/deleteMeal';
 import { toast } from 'react-toastify';
-import { FiEdit2, FiTrash2, FiEye } from 'react-icons/fi'; // Add icons
+import { FiEdit2, FiTrash2, FiEye } from 'react-icons/fi';
 
 export default function ProfileMeals({ meals: initialMeals }) {
   const [meals, setMeals] = useState(initialMeals);
@@ -60,7 +60,7 @@ export default function ProfileMeals({ meals: initialMeals }) {
                   {meal.name}
                 </h3>
                 <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
-                  Rp.{meal.price}
+                  Rp.{meal.price.toFixed(3)}
                 </span>
               </div>
 
