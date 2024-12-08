@@ -16,7 +16,7 @@ export default function OrderCard({ order }) {
       <div className="flex justify-between items-center mb-4">
         <div>
           <h2 className="text-lg font-semibold text-gray-800">
-            Order #{order.id || 'N/A'}
+            Order #{order._id || 'N/A'}
           </h2>
           <p className="text-sm text-gray-500">{order.name || 'Unknown'}</p>
         </div>

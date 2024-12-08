@@ -5,11 +5,10 @@ import { authOptions } from '@/utils/authOptions';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export async function createOrder(formData) {
   try {
-    // Pastikan pengguna sudah login
+    // Check authentication
     const session = await getServerSession(authOptions);
     if (!session) {
       return {
@@ -18,13 +17,24 @@ export async function createOrder(formData) {
       };
     }
 
-    // Sambungkan ke database
+    // Connect to database
     await connectDB();
 
-    // Buat pesanan baru
+    // Validate required fields
+    const requiredFields = ['meal', 'name', 'email', 'phone', 'address'];
+    for (const field of requiredFields) {
+      if (!formData[field]) {
+        return {
+          success: false,
+          message: `Field ${field} harus diisi`,
+        };
+      }
+    }
+
+    // Create order data
     const ordersData = {
       user: session.user.id,
-      meal: formData.mealId,
+      meal: formData.meal, // Changed from mealId to meal
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
@@ -37,17 +47,29 @@ export async function createOrder(formData) {
       status: 'pending',
     };
 
-    // Simpan pesanan
-    const newOrder = new Orders(ordersData);
-    await newOrder.save();
+    // Save order
+    const newOrder = await Orders.create(ordersData);
 
-    // Refresh data
+    // Revalidate data
+    revalidatePath('/orders');
     revalidatePath('/', 'layout');
 
-    // Redirect ke halaman pesanan
-    redirect(`/meals/${newOrder._id}`);
+    return {
+      success: true,
+      message: 'Pesanan berhasil dibuat',
+      data: newOrder,
+    };
   } catch (error) {
-    console.error('Kesalahan pembuatan pesanan:', error);
+    console.error('Order creation error:', error);
+
+    // Handle mongoose validation errors
+    if (error.name === 'ValidationError') {
+      return {
+        success: false,
+        message: Object.values(error.errors)[0].message,
+      };
+    }
+
     return {
       success: false,
       message: 'Gagal membuat pesanan',

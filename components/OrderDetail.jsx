@@ -1,5 +1,3 @@
-// app/order/[id]/page.js
-
 export default function OrderDetailPage({ order }) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
