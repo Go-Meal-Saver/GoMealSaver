@@ -59,6 +59,34 @@ const MealSchema = new Schema(
       default: true,
       required: true,
     },
+    stockQuantity: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+    ratings: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        rating: {
+          type: Number,
+          min: 1,
+          max: 5,
+        },
+        review: String,
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    totalOrders: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

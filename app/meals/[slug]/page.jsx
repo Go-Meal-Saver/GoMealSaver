@@ -71,6 +71,13 @@ export default async function MealPage({ params }) {
                   <MealContactForm meal={meal} />
                 </div>
               </aside>
+
+              <Link
+                href={`/meals/checkout?mealId=${meal._id}`}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Proceed to Checkout
+              </Link>
             </div>
           </div>
         </section>
