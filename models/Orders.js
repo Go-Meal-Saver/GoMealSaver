@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 const OrderSchema = new mongoose.Schema(
   {
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Meal',
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

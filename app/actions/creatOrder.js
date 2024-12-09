@@ -1,7 +1,6 @@
 'use server';
 
 import { getSessionUser } from '@/utils/getSessionUser';
-import { authOptions } from '@/utils/authOptions';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';
 import { revalidatePath } from 'next/cache';
@@ -19,7 +18,14 @@ export async function createOrder(formData) {
     await connectDB();
 
     // Validate required fields
-    const requiredFields = ['meal', 'name', 'email', 'phone', 'address'];
+    const requiredFields = [
+      'meal',
+      'name',
+      'email',
+      'phone',
+      'address',
+      'owner',
+    ];
     for (const field of requiredFields) {
       if (!formData[field]) {
         return {
@@ -40,6 +46,7 @@ export async function createOrder(formData) {
     // Create order data
     const ordersData = {
       user: userId,
+      owner: formData.owner,
       meal: formData.meal,
       quantity: formData.quantity,
       name: formData.name,
