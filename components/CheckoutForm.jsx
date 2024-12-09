@@ -10,7 +10,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
     user: user._id,
     meal: meal._id,
     quantity: 1,
-    username: '',
+    name: '',
     email: '',
     phone: '',
     address: '',
@@ -41,12 +41,17 @@ export default function CheckoutForm({ meal, user, createOrder }) {
       }));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createOrder(formData);
-      toast.success('Pesanan berhasil dibuat!');
-      router.push('/orders');
+      const response = await createOrder(formData);
+      if (response.success) {
+        toast.success('Pesanan berhasil dibuat!');
+        router.push('/orders');
+      } else {
+        toast.error(response.message);
+      }
     } catch (error) {
       toast.error('Gagal membuat pesanan');
       console.error('Order submission error:', error);

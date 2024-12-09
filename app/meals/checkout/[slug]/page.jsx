@@ -1,4 +1,3 @@
-// app/meals/checkout/page.js
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import connectDB from '@/config/database';

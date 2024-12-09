@@ -9,7 +9,6 @@ import { revalidatePath } from 'next/cache';
 export async function createOrder(formData) {
   try {
     // Check authentication
-
     const sessionUser = await getSessionUser();
     if (!sessionUser || !sessionUser.userId) {
       throw new Error('You need to be logged in to add a meals');
@@ -30,7 +29,7 @@ export async function createOrder(formData) {
       }
     }
 
-    // validate quantity'
+    // Validate quantity
     if (formData.quantity < 1) {
       return {
         success: false,
@@ -58,6 +57,9 @@ export async function createOrder(formData) {
     // Save order
     const newOrder = await Orders.create(ordersData);
 
+    // Convert newOrder to plain object and ensure all properties are simple values
+    const plainOrder = JSON.parse(JSON.stringify(newOrder));
+
     // Revalidate data
     revalidatePath('/orders');
     revalidatePath('/', 'layout');
@@ -65,7 +67,7 @@ export async function createOrder(formData) {
     return {
       success: true,
       message: 'Pesanan berhasil dibuat',
-      data: newOrder,
+      data: plainOrder,
     };
   } catch (error) {
     console.error('Order creation error:', error);
