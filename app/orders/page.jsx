@@ -1,4 +1,3 @@
-// page.jsx
 import OrderCard from '@/components/OrdersCard';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';

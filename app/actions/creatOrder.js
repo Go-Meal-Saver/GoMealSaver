@@ -1,6 +1,6 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
+import { getSessionUser } from '@/utils/getSessionUser';
 import { authOptions } from '@/utils/authOptions';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';
@@ -9,13 +9,12 @@ import { revalidatePath } from 'next/cache';
 export async function createOrder(formData) {
   try {
     // Check authentication
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return {
-        success: false,
-        message: 'Anda harus login untuk membuat pesanan',
-      };
+
+    const sessionUser = await getSessionUser();
+    if (!sessionUser || !sessionUser.userId) {
+      throw new Error('You need to be logged in to add a meals');
     }
+    const { userId } = sessionUser;
 
     // Connect to database
     await connectDB();
@@ -31,10 +30,19 @@ export async function createOrder(formData) {
       }
     }
 
+    // validate quantity'
+    if (formData.quantity < 1) {
+      return {
+        success: false,
+        message: 'Jumlah harus lebih dari 1',
+      };
+    }
+
     // Create order data
     const ordersData = {
-      user: session.user.id,
-      meal: formData.meal, // Changed from mealId to meal
+      user: userId,
+      meal: formData.meal,
+      quantity: formData.quantity,
       name: formData.name,
       email: formData.email,
       phone: formData.phone,

@@ -20,7 +20,7 @@ export default async function OrderPage({ params }) {
   }
 
   try {
-    const orderDoc = await Order.findById(params.slug).lean();
+    const orderDoc = await Order.findById(params.slug).populate('meal').lean();
     if (!orderDoc) {
       return (
         <div className="min-h-[400px] flex items-center justify-center">
@@ -34,10 +34,11 @@ export default async function OrderPage({ params }) {
     }
 
     const order = convertToSerializedObject(orderDoc);
+    const meal = convertToSerializedObject(orderDoc.meal);
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-green-50 pt-28">
-        <OrderDetail order={order} />
+        <OrderDetail order={order} meal={meal} />
       </div>
     );
   } catch (error) {

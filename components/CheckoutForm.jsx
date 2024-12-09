@@ -9,8 +9,9 @@ export default function CheckoutForm({ meal, user, createOrder }) {
   const [formData, setFormData] = useState({
     user: user._id,
     meal: meal._id,
-    name: user?.name || '',
-    email: user?.email || '',
+    quantity: 1,
+    username: '',
+    email: '',
     phone: '',
     address: '',
     city: '',
@@ -29,6 +30,17 @@ export default function CheckoutForm({ meal, user, createOrder }) {
     }));
   };
 
+  const handleQuantityChange = (e) => {
+    const quantity = parseInt(e.target.value);
+    if (quantity > 0) {
+      const totalPrice = meal.price * quantity;
+      setFormData((prev) => ({
+        ...prev,
+        quantity: quantity,
+        totalPrice: totalPrice,
+      }));
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -44,6 +56,38 @@ export default function CheckoutForm({ meal, user, createOrder }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
+        {/* Meal Details Section */}
+        <div className="bg-gray-50 p-4 rounded-lg mb-6">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="font-semibold text-lg">{meal.name}</h3>
+              <p className="text-gray-600">Rp {meal.price} / porsi</p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <label className="text-sm font-medium text-gray-700">
+                Jumlah:
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="99"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleQuantityChange}
+                className="w-20 rounded-md border border-gray-300 px-3 py-2"
+                required
+              />
+            </div>
+          </div>
+          <div className="border-t border-gray-200 pt-4">
+            <div className="flex justify-between text-sm mb-2">
+              <span>Subtotal ({formData.quantity} porsi):</span>
+              <span>Rp {Number(formData.totalPrice)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Existing form fields */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Nama
@@ -140,7 +184,6 @@ export default function CheckoutForm({ meal, user, createOrder }) {
           >
             <option value="dine_in">Makan di Tempat</option>
             <option value="takeaway">Bawa Pulang</option>
-            <option value="delivery">Pengantaran</option>
           </select>
         </div>
 
@@ -159,9 +202,8 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div className="bg-gray-50 p-4 rounded-lg">
           <p className="text-lg font-semibold">
-            Total: Rp {formData.totalPrice.toLocaleString()}
+            Total: Rp {formData.totalPrice}
           </p>
-          <span>{meal.name}</span>
         </div>
       </div>
 

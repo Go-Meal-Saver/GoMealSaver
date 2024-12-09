@@ -73,7 +73,7 @@ export default async function MealPage({ params }) {
               </aside>
 
               <Link
-                href={`/meals/checkout?mealId=${meal._id}`}
+                href={`/meals/checkout/${meal._id}`}
                 className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
               >
                 Proceed to Checkout

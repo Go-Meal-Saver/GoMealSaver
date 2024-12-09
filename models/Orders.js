@@ -12,6 +12,12 @@ const OrderSchema = new mongoose.Schema(
       ref: 'Meal',
       required: true,
     },
+    quantity: {
+      type: Number,
+      required: true,
+      min: 1,
+      default: 1,
+    },
     name: {
       type: String,
       required: true,
