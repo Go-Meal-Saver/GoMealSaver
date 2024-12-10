@@ -34,7 +34,7 @@ export default async function OrderPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {serializedOrders.map((order) => (
-              <OrderCard key={order.id} order={order} />
+              <OrderCard key={order._id} order={order} />
             ))}
           </div>
         </div>
