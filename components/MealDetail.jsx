@@ -81,10 +81,10 @@ export default function MealDetail({ meal }) {
             <div className="space-y-1">
               <div className="flex justify-center items-baseline space-x-3">
                 <span className="text-3xl font-bold text-emerald-600">
-                  Rp.{meal.price.toFixed(2)}
+                  Rp.{meal.price.toFixed(3)}
                 </span>
                 <span className="text-gray-400 line-through text-lg opacity-70">
-                  Rp.{meal.originalPrice.toFixed(2)}
+                  Rp.{meal.originalPrice.toFixed(3)}
                 </span>
               </div>
               <p className="text-sm text-gray-500">

@@ -8,7 +8,7 @@ export default function OrderCard({ order }) {
   }
 
   const formatPrice = (price) => {
-    return typeof price === 'number' ? price.toFixed(2) : '0.00';
+    return typeof price === 'number' ? price.toFixed(3) : '0.000';
   };
 
   return (
@@ -35,7 +35,7 @@ export default function OrderCard({ order }) {
         <div>
           <p className="text-gray-600">Total</p>
           <p className="text-xl font-bold text-green-600">
-            ${formatPrice(order.totalPrice)}
+            Rp.{formatPrice(order.totalPrice)}
           </p>
         </div>
         <Link

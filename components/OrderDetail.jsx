@@ -39,7 +39,7 @@ export default function OrderDetailPage({ order, meal }) {
               </div>
               <div className="text-right">
                 <p className="text-sm text-gray-500">Harga per Porsi</p>
-                <p className="font-medium">Rp {meal?.price}</p>
+                <p className="font-medium">Rp {meal?.price.toFixed(3)}</p>
               </div>
             </div>
             <div className="flex justify-between items-center border-t pt-4">
@@ -50,7 +50,7 @@ export default function OrderDetailPage({ order, meal }) {
               <div className="text-right">
                 <p className="text-sm text-gray-500">Total Harga</p>
                 <p className="font-semibold text-lg text-green-600">
-                  Rp {order.totalPrice}
+                  Rp {order.totalPrice.toFixed(3)}
                 </p>
               </div>
             </div>

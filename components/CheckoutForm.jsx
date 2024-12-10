@@ -62,7 +62,9 @@ export default function CheckoutForm({ meal, user, createOrder }) {
           <div className="flex justify-between items-start mb-4">
             <div>
               <h3 className="font-semibold text-lg">{meal.name}</h3>
-              <p className="text-gray-600">Rp {meal.price} / porsi</p>
+              <p className="text-gray-600">
+                Rp {meal.price.toFixed(3)} / porsi
+              </p>
             </div>
             <div className="flex items-center space-x-2">
               <label className="text-sm font-medium text-gray-700">
@@ -83,7 +85,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
           <div className="border-t border-gray-200 pt-4">
             <div className="flex justify-between text-sm mb-2">
               <span>Subtotal ({formData.quantity} porsi):</span>
-              <span>Rp {Number(formData.totalPrice)}</span>
+              <span>Rp {Number(formData.totalPrice).toFixed(3)}</span>
             </div>
           </div>
         </div>
@@ -203,7 +205,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div className="bg-gray-50 p-4 rounded-lg">
           <p className="text-lg font-semibold">
-            Total: Rp {formData.totalPrice}
+            Total: Rp {formData.totalPrice.toFixed(3)}
           </p>
         </div>
       </div>
