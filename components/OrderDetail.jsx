@@ -4,7 +4,7 @@ export default function OrderDetailPage({ order, meal }) {
       <div className="max-w-4xl mx-auto px-4">
         {/* Header Section */}
         <div className="bg-white rounded-lg p-6 mb-6 flex justify-between items-center shadow-sm">
-          <h1 className="text-2xl font-bold text-gray-900">Detail Pesanan</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Order Details</h1>
           <span
             className={`px-4 py-2 rounded-full text-sm font-semibold ${
               order.status === 'pending'
@@ -17,38 +17,38 @@ export default function OrderDetailPage({ order, meal }) {
             }`}
           >
             {order.status === 'pending'
-              ? 'Menunggu'
+              ? 'Pending'
               : order.status === 'processing'
-              ? 'Diproses'
+              ? 'Processed'
               : order.status === 'completed'
-              ? 'Selesai'
-              : 'Dibatalkan'}
+              ? 'Completed'
+              : 'Canceled'}
           </span>
         </div>
 
         {/* Meal Details Section */}
         <div className="bg-white rounded-lg p-6 mb-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4 text-gray-900">
-            Detail Makanan
+            Meal Details
           </h2>
           <div className="space-y-4">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-sm text-gray-500">Nama Makanan</p>
+                <p className="text-sm text-gray-500">Food Name</p>
                 <p className="font-medium">{meal.name || ''}</p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-500">Harga per Porsi</p>
+                <p className="text-sm text-gray-500">Price per Portion</p>
                 <p className="font-medium">Rp {meal?.price.toFixed(3)}</p>
               </div>
             </div>
             <div className="flex justify-between items-center border-t pt-4">
               <div>
-                <p className="text-sm text-gray-500">Jumlah Pesanan</p>
-                <p className="font-medium">{order.quantity} porsi</p>
+                <p className="text-sm text-gray-500">Order Quantity</p>
+                <p className="font-medium">{order.quantity} Quantity</p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-500">Total Harga</p>
+                <p className="text-sm text-gray-500">Total Price</p>
                 <p className="font-semibold text-lg text-green-600">
                   Rp {order.totalPrice.toFixed(3)}
                 </p>
@@ -60,25 +60,25 @@ export default function OrderDetailPage({ order, meal }) {
         {/* Order Info Section */}
         <div className="bg-white rounded-lg p-6 mb-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4 text-gray-900">
-            Informasi Pesanan
+            Order Information
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-500">ID Pesanan</p>
+              <p className="text-sm text-gray-500">Order ID</p>
               <p className="font-medium">{order._id}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Tipe Pesanan</p>
+              <p className="text-sm text-gray-500">Order Type</p>
               <p className="font-medium">
                 {order.orderType === 'dine_in'
-                  ? 'Makan di Tempat'
+                  ? 'dine_in'
                   : order.orderType === 'takeaway'
-                  ? 'Bawa Pulang'
-                  : 'Pengantaran'}
+                  ? 'takeaway'
+                  : 'takeaway'}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Waktu Pemesanan</p>
+              <p className="text-sm text-gray-500">Ordering Time</p>
               <p className="font-medium">
                 {new Date(order.createdAt).toLocaleString('id-ID')}
               </p>
@@ -89,11 +89,11 @@ export default function OrderDetailPage({ order, meal }) {
         {/* Customer Info Section */}
         <div className="bg-white rounded-lg p-6 mb-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4 text-gray-900">
-            Informasi Pelanggan
+            Customer Information
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-500">Nama</p>
+              <p className="text-sm text-gray-500">Name</p>
               <p className="font-medium">{order.name}</p>
             </div>
             <div>
@@ -101,7 +101,7 @@ export default function OrderDetailPage({ order, meal }) {
               <p className="font-medium">{order.email}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">No. Telepon</p>
+              <p className="text-sm text-gray-500">Phone No.</p>
               <p className="font-medium">{order.phone}</p>
             </div>
           </div>
@@ -110,19 +110,19 @@ export default function OrderDetailPage({ order, meal }) {
         {/* Delivery Info Section */}
         <div className="bg-white rounded-lg p-6 mb-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4 text-gray-900">
-            Informasi Pengiriman
+            Shipping Information
           </h2>
           <div className="space-y-3">
             <div>
-              <p className="text-sm text-gray-500">Alamat</p>
+              <p className="text-sm text-gray-500">Address</p>
               <p className="font-medium">{order.address}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Kota</p>
+              <p className="text-sm text-gray-500">City</p>
               <p className="font-medium">{order.city}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Kode Pos</p>
+              <p className="text-sm text-gray-500">Zip Code</p>
               <p className="font-medium">{order.postalCode}</p>
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function OrderDetailPage({ order, meal }) {
         {order.specialInstructions && (
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <h2 className="text-lg font-semibold mb-4 text-gray-900">
-              Instruksi Khusus
+              Special Instructions
             </h2>
             <p className="text-gray-700">{order.specialInstructions}</p>
           </div>

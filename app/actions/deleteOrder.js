@@ -1,6 +1,5 @@
 'use server';
 import { revalidatePath } from 'next/cache';
-import connectDB from '@/config/database';
 import Order from '@/models/Orders';
 import { getSessionUser } from '@/utils/getSessionUser';
 

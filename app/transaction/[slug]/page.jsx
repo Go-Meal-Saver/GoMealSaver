@@ -1,7 +1,7 @@
 import { isValidObjectId } from 'mongoose';
 import connectDB from '@/config/database';
 import Order from '@/models/Orders';
-import OrderDetail from '@/components/OrderDetail';
+import TransactionDetailPage from '@/components/TransactionDetail';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { convertToSerializedObject } from '@/utils/convertToObject';
 import { redirect } from 'next/navigation';
@@ -57,7 +57,7 @@ export default async function TransactionPage({ params }) {
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-green-50 pt-28">
-        <OrderDetail order={order} meal={meal} />
+        <TransactionDetailPage transaction={order} meal={meal} />
       </div>
     );
   } catch (error) {

@@ -24,12 +24,8 @@ export default async function OrderPage({ params }) {
 
   if (!isValidObjectId(params.slug)) {
     return (
-      <div className="min-h-[400px] flex items-center justify-center">
-        <div className="bg-red-50 p-8 rounded-lg shadow-lg border border-red-100">
-          <h2 className="text-3xl font-bold text-red-600 animate-fade-in">
-            Invalid order ID format
-          </h2>
-        </div>
+      <div>
+        <NotFound />
       </div>
     );
   }
@@ -60,12 +56,8 @@ export default async function OrderPage({ params }) {
     );
   } catch (error) {
     return (
-      <div className="min-h-[400px] flex items-center justify-center">
-        <div className="bg-red-50 p-8 rounded-lg shadow-lg border border-red-100">
-          <h2 className="text-3xl font-bold text-red-600 animate-fade-in">
-            Error fetching order
-          </h2>
-        </div>
+      <div>
+        <NotFound />
       </div>
     );
   }
