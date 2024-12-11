@@ -1,12 +1,11 @@
-import OrderCard from '@/components/OrdersCard';
+import TransactionCard from '@/components/TrancsactionCard';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';
 import { convertToSerializedObject } from '@/utils/convertToObject';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-
-export default async function OrderPage() {
+export default async function TransactionPage() {
   try {
     await connectDB();
 
@@ -14,15 +13,17 @@ export default async function OrderPage() {
     if (!sessionUser) {
       redirect('/login');
     }
-    const { userId } = sessionUser;
-    if (!userId) {
-      throw new Error('You need to sign in to view your orders');
-    }
-    const orders = await Orders.find({ user: userId }).lean();
-    const serializedOrders = orders.map((order) =>
-      convertToSerializedObject(order)
-    );
 
+    const { userId } = sessionUser;
+
+    if (!userId) {
+      throw new Error('You need to sign in to view your transactions');
+    }
+
+    const transactions = await Orders.find({ owner: userId }).lean();
+    const serializedTransactions = transactions.map((transaction) =>
+      convertToSerializedObject(transaction)
+    );
     return (
       <section className="min-h-screen bg-gray-50 py-8 pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,10 +34,13 @@ export default async function OrderPage() {
             </p>
           </div>
 
-          {serializedOrders.length > 0 ? (
+          {serializedTransactions.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {serializedOrders.map((order) => (
-                <OrderCard key={order._id} order={order} />
+              {serializedTransactions.map((transaction) => (
+                <TransactionCard
+                  key={transaction._id}
+                  transaction={transaction}
+                />
               ))}
             </div>
           ) : (
@@ -52,20 +56,22 @@ export default async function OrderPage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                  d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm4 5a.5.5 0 11-1 0 .5.5 0 011 0z"
                 />
               </svg>
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-                No Orders Yet
+                Sorry, No Transaction at Your Store
               </h2>
               <p className="text-gray-600 mb-6">
-                It seems you havent placed any orders yet. Lets change that!
+                It looks like you dont have a transaction history yet. Start
+                selling products to see your first transaction! Sorry, No
+                Transaction at Your Store
               </p>
               <Link
-                href="/orders"
+                href="/"
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out"
               >
-                Explore Meals
+                To Main Page
               </Link>
             </div>
           )}
@@ -73,7 +79,7 @@ export default async function OrderPage() {
       </section>
     );
   } catch (error) {
-    console.error('Failed to fetch orders:', error);
-    return <div>Error loading orders. Please try again later.</div>;
+    console.error('Failed to fetch transactions:', error);
+    return <div>Error loading transactions. Please try again later.</div>;
   }
 }

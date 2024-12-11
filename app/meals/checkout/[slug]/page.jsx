@@ -24,9 +24,7 @@ export default async function CheckoutPage({ params }) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-red-50 p-8 rounded-lg shadow-lg border border-red-100">
-          <h2 className="text-3xl font-bold text-red-600">
-            Tidak ada makanan yang dipilih
-          </h2>
+          <h2 className="text-3xl font-bold text-red-600">No food selected</h2>
         </div>
       </div>
     );
@@ -41,7 +39,7 @@ export default async function CheckoutPage({ params }) {
         <div className="min-h-screen flex items-center justify-center">
           <div className="bg-amber-50 p-8 rounded-lg shadow-lg border border-amber-100">
             <h2 className="text-3xl font-bold text-amber-600">
-              Makanan tidak ditemukan
+              Food not found
             </h2>
           </div>
         </div>
@@ -73,7 +71,7 @@ export default async function CheckoutPage({ params }) {
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-red-50 p-8 rounded-lg shadow-lg border border-red-100">
           <h2 className="text-3xl font-bold text-red-600">
-            Kesalahan memproses checkout
+            Error processing checkout
           </h2>
         </div>
       </div>

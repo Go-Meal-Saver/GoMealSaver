@@ -39,7 +39,7 @@ export async function createOrder(formData) {
     if (formData.quantity < 1) {
       return {
         success: false,
-        message: 'Jumlah harus lebih dari 1',
+        message: 'Quantity must be more than 1',
       };
     }
 
@@ -73,7 +73,7 @@ export async function createOrder(formData) {
 
     return {
       success: true,
-      message: 'Pesanan berhasil dibuat',
+      message: 'Order successfully created',
       data: plainOrder,
     };
   } catch (error) {
@@ -89,7 +89,7 @@ export async function createOrder(formData) {
 
     return {
       success: false,
-      message: 'Gagal membuat pesanan',
+      message: 'Failed to create an order',
     };
   }
 }

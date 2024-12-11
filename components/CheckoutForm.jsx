@@ -46,10 +46,10 @@ export default function CheckoutForm({ meal, user, createOrder }) {
     e.preventDefault();
     try {
       await createOrder(formData);
-      toast.success('Pesanan berhasil dibuat!');
+      toast.success('Order successfully created!');
       router.push('/orders');
     } catch (error) {
-      toast.error('Gagal membuat pesanan');
+      toast.error('Failed to create an order');
       console.error('Order submission error:', error);
     }
   };
@@ -63,12 +63,12 @@ export default function CheckoutForm({ meal, user, createOrder }) {
             <div>
               <h3 className="font-semibold text-lg">{meal.name}</h3>
               <p className="text-gray-600">
-                Rp {meal.price.toFixed(3)} / porsi
+                Rp {meal.price.toFixed(3)} / portion
               </p>
             </div>
             <div className="flex items-center space-x-2">
               <label className="text-sm font-medium text-gray-700">
-                Jumlah:
+                Quantity:
               </label>
               <input
                 type="number"
@@ -84,7 +84,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
           </div>
           <div className="border-t border-gray-200 pt-4">
             <div className="flex justify-between text-sm mb-2">
-              <span>Subtotal ({formData.quantity} porsi):</span>
+              <span>Subtotal ({formData.quantity} portion):</span>
               <span>Rp {Number(formData.totalPrice).toFixed(3)}</span>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
         {/* Existing form fields */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Nama
+            Name
           </label>
           <input
             type="text"
@@ -121,7 +121,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            No. Telepon
+            Phone number
           </label>
           <input
             type="tel"
@@ -135,7 +135,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Alamat
+            Address
           </label>
           <textarea
             name="address"
@@ -149,7 +149,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Kota
+            City
           </label>
           <input
             type="text"
@@ -163,7 +163,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Kode Pos
+            Zip Codes
           </label>
           <input
             type="text"
@@ -177,7 +177,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Tipe Pesanan
+            Order Type
           </label>
           <select
             name="orderType"
@@ -185,14 +185,14 @@ export default function CheckoutForm({ meal, user, createOrder }) {
             onChange={handleChange}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
           >
-            <option value="dine_in">Makan di Tempat</option>
-            <option value="takeaway">Bawa Pulang</option>
+            <option value="dine_in">dine_in</option>
+            <option value="takeaway">takeaway</option>
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Instruksi Khusus
+            Special Instructions
           </label>
           <textarea
             name="specialInstructions"
@@ -214,7 +214,7 @@ export default function CheckoutForm({ meal, user, createOrder }) {
         type="submit"
         className="w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 transition-colors"
       >
-        Konfirmasi Pesanan
+        Order Confirmation
       </button>
     </form>
   );
