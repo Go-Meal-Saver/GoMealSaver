@@ -1,5 +1,3 @@
-'use client';
-
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
 
@@ -38,7 +36,7 @@ export default function TransactionCard({ transaction }) {
           </p>
         </div>
         <Link
-          href={`/transactions/${transaction._id}`}
+          href={`/transaction/${transaction._id}`}
           className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
         >
           <Eye className="mr-2 w-4 h-4" />

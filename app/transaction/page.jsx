@@ -20,7 +20,9 @@ export default async function TransactionPage() {
       throw new Error('You need to sign in to view your transactions');
     }
 
-    const transactions = await Orders.find({ owner: userId }).lean();
+    const transactions = await Orders.find({ owner: userId })
+      .populate('transaction')
+      .lean();
     const serializedTransactions = transactions.map((transaction) =>
       convertToSerializedObject(transaction)
     );
@@ -28,9 +30,11 @@ export default async function TransactionPage() {
       <section className="min-h-screen bg-gray-50 py-8 pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Your Orders</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Your Transaction
+            </h1>
             <p className="mt-2 text-sm text-gray-600">
-              Manage and track your orders here
+              Manage and track your transaction here
             </p>
           </div>
 

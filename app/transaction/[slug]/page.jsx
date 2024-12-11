@@ -7,7 +7,7 @@ import { convertToSerializedObject } from '@/utils/convertToObject';
 import { redirect } from 'next/navigation';
 import NotFound from '@/app/not-found';
 
-export default async function OrderPage({ params }) {
+export default async function TransactionPage({ params }) {
   await connectDB();
 
   const sessionUser = await getSessionUser();
@@ -35,13 +35,15 @@ export default async function OrderPage({ params }) {
   }
 
   try {
+    // Cari order berdasarkan ID dan owner
     const orderDoc = await Order.findOne({
       _id: params.slug,
 
-      user: userId,
+      owner: userId, // Memastikan order dimiliki oleh user yang sedang login
     })
       .populate('meal')
       .lean();
+
     if (!orderDoc) {
       return (
         <div>
@@ -59,6 +61,7 @@ export default async function OrderPage({ params }) {
       </div>
     );
   } catch (error) {
+    console.error('Error fetching order:', error);
     return (
       <div className="min-h-[400px] flex items-center justify-center">
         <div className="bg-red-50 p-8 rounded-lg shadow-lg border border-red-100">

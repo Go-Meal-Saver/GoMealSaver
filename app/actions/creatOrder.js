@@ -43,7 +43,7 @@ export async function createOrder(formData) {
       };
     }
 
-    // Create order data
+    // Create order data without transactionId
     const ordersData = {
       user: userId,
       owner: formData.owner,
@@ -63,6 +63,10 @@ export async function createOrder(formData) {
 
     // Save order
     const newOrder = await Orders.create(ordersData);
+
+    // Update order with transactionId
+    newOrder.transaction = newOrder._id;
+    await newOrder.save();
 
     // Convert newOrder to plain object and ensure all properties are simple values
     const plainOrder = JSON.parse(JSON.stringify(newOrder));

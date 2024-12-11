@@ -16,6 +16,10 @@ const OrderSchema = new mongoose.Schema(
       ref: 'Meal',
       required: true,
     },
+    transaction: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
+    },
     quantity: {
       type: Number,
       required: true,
