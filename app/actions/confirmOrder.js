@@ -1,38 +1,36 @@
 'use server';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import Order from '@/models/Orders';
 
 export async function confirmOrder(orderId) {
   try {
+    if (!orderId || typeof orderId !== 'string') {
+      throw new Error('Valid order ID is required');
+    }
     const order = await Order.findById(orderId).populate('meal');
-
-    // Add more detailed status checking
     if (!order) {
       throw new Error('Order not found');
     }
-
-    // List acceptable statuses for confirmation
-    const acceptableStatuses = ['pending', 'processing'];
-
-    if (!acceptableStatuses.includes(order.status)) {
-      throw new Error(
-        `Order cannot be confirmed - current status is ${order.status}`
-      );
+    if (order.status !== 'processing') {
+      throw new Error('Order cannot be confirmed - invalid status');
     }
-
-    // Rest of your existing confirmation logic
+    // Update product stock quantity
     order.meal.stockQuantity -= order.quantity;
     await order.meal.save();
 
+    // Update product total orders
     order.meal.totalOrders += order.quantity;
     await order.meal.save();
 
+    // Update order status
     order.status = 'completed';
     order.confirmedAt = new Date();
     await order.save();
 
-    revalidatePath(`/order/${orderId}`);
-    return { success: true };
+    // Revalidate the order page and redirect
+    revalidatePath(`/review/${orderId}`);
+    redirect(`/order/${orderId}/review`);
   } catch (error) {
     console.error('Error completing order:', error);
     return {
