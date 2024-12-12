@@ -21,7 +21,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: 'Go Mea lSaver',
+  title: 'Go Meal Saver',
   description: 'Go Meal Saver',
 };
 

@@ -1,4 +1,33 @@
+'use client';
+import { useState } from 'react';
+import { confirmOrder } from '@/app/actions/confirmOrder';
+
 export default function OrderDetailPage({ order, meal }) {
+  const [orderStatus, setOrderStatus] = useState(order.status);
+  const [isConfirming, setisConfirminging] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleStatusChange = async () => {
+    try {
+      setisConfirminging(true);
+      setError('');
+
+      if (orderStatus === 'processing') {
+        const result = await confirmOrder(order._id);
+        if (result.success) {
+          setOrderStatus('completed');
+        } else {
+          setError(result.error || 'Failed to confirm order');
+        }
+      }
+    } catch (error) {
+      setError('An unexpected error occurred');
+      console.error('Error handling status change:', error);
+    } finally {
+      setisConfirminging(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
@@ -16,15 +45,33 @@ export default function OrderDetailPage({ order, meal }) {
                 : 'bg-red-100 text-red-800'
             }`}
           >
-            {order.status === 'pending'
-              ? 'Pending'
-              : order.status === 'processing'
-              ? 'Processed'
-              : order.status === 'completed'
-              ? 'Completed'
-              : 'Canceled'}
+            {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
           </span>
+          {orderStatus === 'processing' && (
+            <button
+              onClick={handleStatusChange}
+              disabled={isConfirming}
+              className={`px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold 
+                  ${
+                    isConfirming
+                      ? 'opacity-50 cursor-not-allowed'
+                      : 'hover:bg-blue-600'
+                  } 
+                  transition-colors duration-200`}
+            >
+              {isConfirming ? 'completed...' : 'Mark as completed'}
+            </button>
+          )}
         </div>
+
+        {error && (
+          <div
+            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative mb-6"
+            role="alert"
+          >
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
 
         {/* Meal Details Section */}
         <div className="bg-white rounded-lg p-6 mb-6 shadow-sm">

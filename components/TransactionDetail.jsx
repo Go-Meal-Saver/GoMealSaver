@@ -1,20 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { confirmOrder } from '@/app/actions/confirmOrder';
+import { processOrder } from '@/app/actions/processOrder';
 
 export default function TransactionDetailPage({ transaction, meal }) {
   const [orderStatus, setOrderStatus] = useState(transaction.status);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
-
+  process;
   const handleStatusChange = async () => {
     try {
       setIsProcessing(true);
       setError('');
 
       if (orderStatus === 'pending') {
-        const result = await confirmOrder(transaction._id);
+        const result = await processOrder(transaction._id);
         if (result.success) {
           setOrderStatus('processing');
         } else {

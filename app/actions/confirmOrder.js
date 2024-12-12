@@ -1,38 +1,43 @@
 'use server';
-
 import { revalidatePath } from 'next/cache';
 import Order from '@/models/Orders';
-import Meal from '@/models/Meals';
 
-export async function confirmOrder(transactionId) {
+export async function confirmOrder(orderId) {
   try {
-    if (!transactionId) {
-      throw new Error('Transaction ID is required');
-    }
+    const order = await Order.findById(orderId).populate('meal');
 
-    const transaction = await Order.findById(transactionId);
-
-    if (!transaction) {
+    // Add more detailed status checking
+    if (!order) {
       throw new Error('Order not found');
     }
 
-    if (transaction.status !== 'pending') {
-      throw new Error('Order cannot be confirmed - invalid status');
+    // List acceptable statuses for confirmation
+    const acceptableStatuses = ['pending', 'processing'];
+
+    if (!acceptableStatuses.includes(order.status)) {
+      throw new Error(
+        `Order cannot be confirmed - current status is ${order.status}`
+      );
     }
 
-    transaction.status = 'processing';
-    transaction.confirmedAt = new Date();
-    await transaction.save();
+    // Rest of your existing confirmation logic
+    order.meal.stockQuantity -= order.quantity;
+    await order.meal.save();
 
-    // Revalidate the order page
-    revalidatePath(`/transaction/${transactionId}`);
+    order.meal.totalOrders += order.quantity;
+    await order.meal.save();
 
+    order.status = 'completed';
+    order.confirmedAt = new Date();
+    await order.save();
+
+    revalidatePath(`/order/${orderId}`);
     return { success: true };
   } catch (error) {
-    console.error('Error confirming order:', error);
+    console.error('Error completing order:', error);
     return {
       success: false,
-      error: error.message || 'Failed to confirm order',
+      error: error.message || 'Failed to complete order',
     };
   }
 }
