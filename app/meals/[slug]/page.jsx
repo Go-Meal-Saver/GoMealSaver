@@ -1,6 +1,7 @@
 import { isValidObjectId } from 'mongoose';
 import connectDB from '@/config/database';
 import Meal from '@/models/Meals';
+import Review from '@/models/Review';
 import MealDetail from '@/components/MealDetail';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -12,6 +13,8 @@ import MealContactForm from '@/components/MealContactForm';
 
 export default async function MealPage({ params }) {
   await connectDB();
+
+  const reviewId = params.slug;
 
   if (!isValidObjectId(params.slug)) {
     return (
@@ -27,6 +30,7 @@ export default async function MealPage({ params }) {
 
   try {
     const mealDoc = await Meal.findById(params.slug).lean();
+    const reviewDoc = await Review.findOne({ reviewId }).lean();
 
     if (!mealDoc) {
       return (
@@ -41,6 +45,7 @@ export default async function MealPage({ params }) {
     }
 
     const meal = convertToSerializedObject(mealDoc);
+    const review = convertToSerializedObject(reviewDoc);
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-green-50">

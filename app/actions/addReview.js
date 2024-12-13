@@ -1,4 +1,5 @@
 'use server';
+
 import { redirect } from 'next/navigation';
 import Review from '@/models/Review';
 import { getSessionUser } from '@/utils/getSessionUser';
@@ -14,6 +15,7 @@ export async function addReview(transactionId, formData) {
     // Extract values directly from the object
     const rating = Number(formData.rating);
     const reviewText = formData.review;
+    const name = formData.name;
 
     // Validate inputs
     if (isNaN(rating) || rating < 1 || rating > 5) {
@@ -24,9 +26,14 @@ export async function addReview(transactionId, formData) {
       throw new Error('Review text is required.');
     }
 
+    if (!name) {
+      throw new Error('Name is required.');
+    }
+
     // Create new review
     const newReview = new Review({
       user: sessionUser.userId,
+      name,
       rating,
       review: reviewText,
       transaction: transactionId,
@@ -34,14 +41,13 @@ export async function addReview(transactionId, formData) {
 
     await newReview.save();
 
-    return {
-      submitted: true,
-    };
+    // Remove the return statement after redirect
+    // The redirect should be the last action
+    redirect('/orders');
   } catch (error) {
+    // Don't return an error object, instead throw it
+    // so it can be handled by the UI layer
     console.error('Error adding review:', error);
-    return {
-      submitted: false,
-      error: error.message,
-    };
+    throw error;
   }
 }

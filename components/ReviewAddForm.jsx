@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { Star, Send } from 'lucide-react';
-import 'react-toastify/dist/ReactToastify.css';
 import { addReview } from '@/app/actions/addReview';
 
 const AddReviewForm = ({ order }) => {
@@ -15,7 +14,11 @@ const AddReviewForm = ({ order }) => {
     setError(null);
 
     try {
-      const result = await addReview(order.transaction, { rating, review });
+      const result = await addReview(order.transaction, {
+        rating,
+        review,
+        name: order.name,
+      });
 
       if (result && result.submitted) {
         setRating(0);
@@ -47,6 +50,18 @@ const AddReviewForm = ({ order }) => {
           <input
             type="text"
             value={order.transaction}
+            readOnly
+            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Username
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={order.name}
             readOnly
             className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
           />

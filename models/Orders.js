@@ -5,11 +5,17 @@ const OrderSchema = new mongoose.Schema(
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Meal',
+      required: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    review: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+      required: false,
     },
     meal: {
       type: mongoose.Schema.Types.ObjectId,
@@ -19,6 +25,7 @@ const OrderSchema = new mongoose.Schema(
     transaction: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order',
+      required: false,
     },
     quantity: {
       type: Number,

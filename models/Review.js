@@ -2,11 +2,6 @@ import mongoose from 'mongoose';
 
 const ReviewSchema = new mongoose.Schema(
   {
-    // meal: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Meal',
-    //   required: true,
-    // },
     transaction: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order',
@@ -15,6 +10,11 @@ const ReviewSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
+    },
+    name: {
+      type: String,
+      ref: 'Order',
       required: true,
     },
     rating: {
