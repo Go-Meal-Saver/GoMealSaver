@@ -15,8 +15,6 @@ import ReviewPage from '@/components/Review';
 export default async function MealPage({ params }) {
   await connectDB();
 
-  const reviewId = params.slug;
-
   if (!isValidObjectId(params.slug)) {
     return (
       <div className="min-h-[400px] flex items-center justify-center">
@@ -31,7 +29,6 @@ export default async function MealPage({ params }) {
 
   try {
     const mealDoc = await Meal.findById(params.slug).lean();
-    const reviewDoc = await Review.findOne({ reviewId }).lean();
 
     if (!mealDoc) {
       return (
