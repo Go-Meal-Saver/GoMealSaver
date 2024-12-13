@@ -46,7 +46,6 @@ export default async function MealPage({ params }) {
     }
 
     const meal = convertToSerializedObject(mealDoc);
-    const review = convertToSerializedObject(reviewDoc);
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
@@ -76,7 +75,7 @@ export default async function MealPage({ params }) {
                   <ShareButton meal={meal} />
                   <MealContactForm meal={meal} />
                 </div>
-                <ReviewPage />
+                <ReviewPage mealId={meal._id} />
               </aside>
 
               <Link
