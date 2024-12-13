@@ -16,6 +16,7 @@ export async function addReview(transactionId, formData) {
     const rating = Number(formData.rating);
     const reviewText = formData.review;
     const name = formData.name;
+    const meal = formData.meal;
 
     // Validate inputs
     if (isNaN(rating) || rating < 1 || rating > 5) {
@@ -35,6 +36,7 @@ export async function addReview(transactionId, formData) {
       user: sessionUser.userId,
       name,
       rating,
+      meal,
       review: reviewText,
       transaction: transactionId,
     });

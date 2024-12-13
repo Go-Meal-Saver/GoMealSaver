@@ -10,6 +10,7 @@ import MealsHeaderImage from '@/components/MealsHeaderImage';
 import BookmarkButton from '@/components/BookmarkButton';
 import ShareButton from '@/components/ShareButton';
 import MealContactForm from '@/components/MealContactForm';
+import ReviewPage from '@/components/Review';
 
 export default async function MealPage({ params }) {
   await connectDB();
@@ -75,6 +76,7 @@ export default async function MealPage({ params }) {
                   <ShareButton meal={meal} />
                   <MealContactForm meal={meal} />
                 </div>
+                <ReviewPage />
               </aside>
 
               <Link

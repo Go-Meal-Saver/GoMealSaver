@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 const ReviewSchema = new mongoose.Schema(
   {
+    meal: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
+      required: true,
+    },
     transaction: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order',

@@ -8,27 +8,31 @@ const AddReviewForm = ({ order }) => {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [review, setReview] = useState('');
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsSubmitting(true);
 
     try {
-      const result = await addReview(order.transaction, {
+      // Pastikan menambahkan meal ke data yang dikirim
+      await addReview(order.transaction, {
         rating,
         review,
         name: order.name,
+        meal: order.meal, // Tambahkan meal ID
       });
 
-      if (result && result.submitted) {
-        setRating(0);
-        setReview('');
-      } else {
-        setError(result.error || 'Failed to submit review');
-      }
+      // Reset form setelah submit berhasil
+      setRating(0);
+      setReview('');
+      // Opsional: Tambahkan notifikasi sukses atau redirect
     } catch (error) {
       console.error('Error submitting review:', error);
       setError(error.message || 'An unexpected error occurred');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -50,6 +54,17 @@ const AddReviewForm = ({ order }) => {
           <input
             type="text"
             value={order.transaction}
+            readOnly
+            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Meal ID
+          </label>
+          <input
+            type="text"
+            value={order.meal}
             readOnly
             className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
           />
@@ -108,15 +123,15 @@ const AddReviewForm = ({ order }) => {
 
         <button
           type="submit"
-          disabled={rating === 0 || !review}
+          disabled={rating === 0 || !review || isSubmitting}
           className={`flex items-center justify-center w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-            rating === 0 || !review
+            rating === 0 || !review || isSubmitting
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
               : 'bg-blue-600 text-white hover:bg-blue-700'
           }`}
         >
           <Send className="w-5 h-5 mr-2" />
-          Submit Review
+          {isSubmitting ? 'Submitting...' : 'Submit Review'}
         </button>
       </form>
     </div>

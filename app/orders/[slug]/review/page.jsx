@@ -48,7 +48,9 @@ export default async function AddReviewPage({ params }) {
     const existingReview = await Review.findOne({
       transaction: reviewId,
       user: userId,
-    }).lean();
+    })
+      .populate('meal')
+      .lean();
 
     if (existingReview) {
       return (

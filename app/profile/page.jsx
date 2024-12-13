@@ -24,9 +24,6 @@ export default async function ProfilePage() {
   const mealsDocs = await Meal.find({ owner: userId }).lean();
   const meals = mealsDocs.map((meal) => convertToSerializedObject(meal));
 
-  console.log('Session User Image:', sessionUser.user.image);
-  console.log('Profile Default Image:', profileDefault);
-
   return (
     <section className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
       <div className="container mx-auto py-32 px-4">
