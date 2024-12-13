@@ -1,6 +1,7 @@
 import { isValidObjectId } from 'mongoose';
 import connectDB from '@/config/database';
 import Meal from '@/models/Meals';
+import Review from '@/models/Review';
 import MealDetail from '@/components/MealDetail';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -9,6 +10,7 @@ import MealsHeaderImage from '@/components/MealsHeaderImage';
 import BookmarkButton from '@/components/BookmarkButton';
 import ShareButton from '@/components/ShareButton';
 import MealContactForm from '@/components/MealContactForm';
+import ReviewPage from '@/components/Review';
 
 export default async function MealPage({ params }) {
   await connectDB();
@@ -70,7 +72,15 @@ export default async function MealPage({ params }) {
                   <ShareButton meal={meal} />
                   <MealContactForm meal={meal} />
                 </div>
+                <ReviewPage mealId={meal._id} />
               </aside>
+
+              <Link
+                href={`/meals/checkout/${meal._id}`}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Proceed to Checkout
+              </Link>
             </div>
           </div>
         </section>

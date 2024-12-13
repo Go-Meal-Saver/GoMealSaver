@@ -11,6 +11,8 @@ export async function middleware(req) {
     '/profile',
     '/meals/saved/',
     '/messages',
+    '/orders',
+    '/transactions',
   ];
 
   // Check if path starts with any protected route pattern
@@ -32,5 +34,7 @@ export const config = {
     '/meals/saved/:path*',
     '/messages/:path*',
     '/messages',
+    '/orders/:path*',
+    '/transactions/:path*',
   ],
 };

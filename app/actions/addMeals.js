@@ -27,6 +27,7 @@ async function addMeals(formData) {
   const mealsData = {
     owner: userId, // Use the ID from session
     name: formData.get('name'),
+    stockQuantity: Number(formData.get('stockQuantity')),
     cuisine: formData.get('cuisine'),
     description: formData.get('description'),
     price: Number(formData.get('price')),

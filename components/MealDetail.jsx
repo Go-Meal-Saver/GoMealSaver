@@ -5,6 +5,8 @@ import {
   FaStore,
   FaMapMarkerAlt,
   FaTimes,
+  FaBoxOpen,
+  FaShoppingCart,
 } from 'react-icons/fa';
 import MealMap from './MealMap';
 
@@ -71,6 +73,7 @@ export default function MealDetail({ meal }) {
               {meal.name}
             </h1>
           </div>
+
           {/* Pricing with Discount */}
           <div className="bg-gradient-to-br from-white to-gray-50 border border-gray-100 p-5 rounded-2xl text-center space-y-3 relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-red-500 text-white px-3 py-1 rounded-bl-xl font-bold text-sm">
@@ -80,10 +83,10 @@ export default function MealDetail({ meal }) {
             <div className="space-y-1">
               <div className="flex justify-center items-baseline space-x-3">
                 <span className="text-3xl font-bold text-emerald-600">
-                  Rp.{meal.price.toFixed(2)}
+                  Rp.{meal.price.toFixed(3)}
                 </span>
                 <span className="text-gray-400 line-through text-lg opacity-70">
-                  Rp.{meal.originalPrice.toFixed(2)}
+                  Rp.{meal.originalPrice.toFixed(3)}
                 </span>
               </div>
               <p className="text-sm text-gray-500">
@@ -103,6 +106,50 @@ export default function MealDetail({ meal }) {
             <div className="flex items-center gap-2 text-purple-600">
               <FaUtensils className="text-lg" />
               <span className="font-medium">{meal.portionSize} Portion</span>
+            </div>
+          </div>
+
+          {/* Stock and Orders Section */}
+          <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
+            <h2 className="text-xl font-semibold mb-4 text-gray-700 flex items-center gap-2">
+              <FaUtensils className="text-blue-600" />
+              Stock & Orders Information
+            </h2>
+
+            <div className="grid grid-cols-2 gap-6">
+              {/* Stock Card */}
+              <div className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-500 text-sm font-medium">
+                      Stock Quantity
+                    </p>
+                    <p className="text-2xl font-bold text-gray-800 mt-1">
+                      {meal.stockQuantity}
+                    </p>
+                  </div>
+                  <div className="bg-blue-100 p-3 rounded-full">
+                    <FaBoxOpen className="text-blue-600 text-xl" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Orders Card */}
+              <div className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-500 text-sm font-medium">
+                      Total Orders
+                    </p>
+                    <p className="text-2xl font-bold text-gray-800 mt-1">
+                      {meal.totalOrders}
+                    </p>
+                  </div>
+                  <div className="bg-green-100 p-3 rounded-full">
+                    <FaShoppingCart className="text-green-600 text-xl" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
