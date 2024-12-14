@@ -1,5 +1,4 @@
 'use server';
-
 import { redirect } from 'next/navigation';
 import Review from '@/models/Review';
 import { getSessionUser } from '@/utils/getSessionUser';
@@ -9,7 +8,7 @@ export async function addReview(transactionId, formData) {
     const sessionUser = await getSessionUser();
 
     if (!sessionUser) {
-      redirect('/login');
+      return { redirect: '/login' };
     }
 
     // Extract values directly from the object
@@ -43,12 +42,9 @@ export async function addReview(transactionId, formData) {
 
     await newReview.save();
 
-    // Remove the return statement after redirect
-    // The redirect should be the last action
-    redirect('/orders');
+    // Return an object indicating successful redirect
+    return { redirect: '/orders' };
   } catch (error) {
-    // Don't return an error object, instead throw it
-    // so it can be handled by the UI layer
     console.error('Error adding review:', error);
     throw error;
   }
