@@ -123,44 +123,37 @@ export default function MealDetail({ meal }) {
           </div>
 
           {/* Stock and Orders Section */}
-          <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
-            <h2 className="text-xl font-semibold mb-4 text-gray-700 flex items-center gap-2">
-              <FaUtensils className="text-blue-600" />
-              Stock & Orders Information
-            </h2>
-
-            <div className="grid grid-cols-2 gap-6">
-              {/* Stock Card */}
-              <div className="bg-white p-4 rounded-lg shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-500 text-sm font-medium">
-                      Stock Quantity
-                    </p>
-                    <p className="text-2xl font-bold text-gray-800 mt-1">
-                      {meal.stockQuantity}
-                    </p>
-                  </div>
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <FaBoxOpen className="text-blue-600 text-xl" />
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {/* Stock Card */}
+            <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm transform transition-all duration-300 hover:shadow-md">
+              <div className="flex items-center justify-between space-x-4">
+                <div className="flex-grow">
+                  <p className="text-gray-500 text-xs sm:text-sm font-medium truncate">
+                    Stock Quantity
+                  </p>
+                  <p className="text-xl sm:text-2xl font-bold text-gray-800 mt-1">
+                    {meal.stockQuantity}
+                  </p>
+                </div>
+                <div className="bg-blue-100 p-2 sm:p-3 rounded-full">
+                  <FaBoxOpen className="text-base sm:text-xl text-blue-600" />
                 </div>
               </div>
+            </div>
 
-              {/* Orders Card */}
-              <div className="bg-white p-4 rounded-lg shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-500 text-sm font-medium">
-                      Total Orders
-                    </p>
-                    <p className="text-2xl font-bold text-gray-800 mt-1">
-                      {meal.totalOrders}
-                    </p>
-                  </div>
-                  <div className="bg-green-100 p-3 rounded-full">
-                    <FaShoppingCart className="text-green-600 text-xl" />
-                  </div>
+            {/* Orders Card */}
+            <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm transform transition-all duration-300 hover:shadow-md">
+              <div className="flex items-center justify-between space-x-4">
+                <div className="flex-grow">
+                  <p className="text-gray-500 text-xs sm:text-sm font-medium truncate">
+                    Total Orders
+                  </p>
+                  <p className="text-xl sm:text-2xl font-bold text-gray-800 mt-1">
+                    {meal.totalOrders}
+                  </p>
+                </div>
+                <div className="bg-green-100 p-2 sm:p-3 rounded-full">
+                  <FaShoppingCart className="text-base sm:text-xl text-green-600" />
                 </div>
               </div>
             </div>
