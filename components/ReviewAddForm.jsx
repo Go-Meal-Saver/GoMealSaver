@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { Star, Send } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { addReview } from '@/app/actions/addReview';
 
 const AddReviewForm = ({ order }) => {
+  const router = useRouter();
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [review, setReview] = useState('');
@@ -17,12 +19,20 @@ const AddReviewForm = ({ order }) => {
 
     try {
       // Pastikan menambahkan meal ke data yang dikirim
-      await addReview(order.transaction, {
+      const result = await addReview(order.transaction, {
         rating,
         review,
         name: order.name,
         meal: order.meal, // Tambahkan meal ID
       });
+
+      if (result && result.redirect) {
+        router.push(result.redirect);
+        return;
+      }
+
+      // If successful, redirect to orders page
+      router.push('/orders');
 
       // Reset form setelah submit berhasil
       setRating(0);

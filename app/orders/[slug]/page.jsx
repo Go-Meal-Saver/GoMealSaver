@@ -1,6 +1,6 @@
 import { isValidObjectId } from 'mongoose';
 import connectDB from '@/config/database';
-import Order from '@/models/Orders';
+import Orders from '@/models/Orders';
 import OrderDetail from '@/components/OrderDetail';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { convertToSerializedObject } from '@/utils/convertToObject';
@@ -31,7 +31,7 @@ export default async function OrderPage({ params }) {
   }
 
   try {
-    const orderDoc = await Order.findOne({
+    const orderDoc = await Orders.findOne({
       _id: params.slug,
 
       user: userId,

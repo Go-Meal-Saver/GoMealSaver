@@ -1,21 +1,29 @@
 'use client';
 import { useState } from 'react';
 import { confirmOrder } from '@/app/actions/confirmOrder';
+import { useRouter } from 'next/navigation';
 
 export default function OrderDetailPage({ order, meal }) {
+  const router = useRouter();
   const [orderStatus, setOrderStatus] = useState(order.status);
-  const [isConfirming, setisConfirminging] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
   const [error, setError] = useState('');
 
   const handleStatusChange = async () => {
     try {
-      setisConfirminging(true);
+      setIsConfirming(true);
       setError('');
 
       if (orderStatus === 'processing') {
         const result = await confirmOrder(order._id);
+
         if (result.success) {
           setOrderStatus('completed');
+
+          // If a redirect URL is provided, use router to navigate
+          if (result.redirectUrl) {
+            router.push(result.redirectUrl);
+          }
         } else {
           setError(result.error || 'Failed to confirm order');
         }
@@ -24,7 +32,7 @@ export default function OrderDetailPage({ order, meal }) {
       setError('An unexpected error occurred');
       console.error('Error handling status change:', error);
     } finally {
-      setisConfirminging(false);
+      setIsConfirming(false);
     }
   };
 
@@ -36,11 +44,11 @@ export default function OrderDetailPage({ order, meal }) {
           <h1 className="text-2xl font-bold text-gray-900">Order Details</h1>
           <span
             className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              order.status === 'pending'
+              orderStatus === 'pending'
                 ? 'bg-yellow-100 text-yellow-800'
-                : order.status === 'processing'
+                : orderStatus === 'processing'
                 ? 'bg-blue-100 text-blue-800'
-                : order.status === 'completed'
+                : orderStatus === 'completed'
                 ? 'bg-green-100 text-green-800'
                 : 'bg-red-100 text-red-800'
             }`}
@@ -59,7 +67,7 @@ export default function OrderDetailPage({ order, meal }) {
                   } 
                   transition-colors duration-200`}
             >
-              {isConfirming ? 'completed...' : 'Mark as completed'}
+              {isConfirming ? 'Completing...' : 'Mark as completed'}
             </button>
           )}
         </div>
@@ -118,10 +126,10 @@ export default function OrderDetailPage({ order, meal }) {
               <p className="text-sm text-gray-500">Order Type</p>
               <p className="font-medium">
                 {order.orderType === 'dine_in'
-                  ? 'dine_in'
+                  ? 'Dine In'
                   : order.orderType === 'takeaway'
-                  ? 'takeaway'
-                  : 'takeaway'}
+                  ? 'Takeaway'
+                  : 'Takeaway'}
               </p>
             </div>
             <div>
