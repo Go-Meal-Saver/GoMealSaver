@@ -90,7 +90,7 @@ export default function MealDetail({ meal }) {
                 </span>
               </div>
               <p className="text-sm text-gray-500">
-                Hemat Rp.{(meal.originalPrice - meal.price).toFixed(2)}
+                Hemat Rp.{(meal.originalPrice - meal.price).toFixed(3)}
               </p>
             </div>
 
