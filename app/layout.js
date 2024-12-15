@@ -1,14 +1,15 @@
 import localFont from 'next/font/local';
-
-import '../assets/styles/globals.css';
-import 'react-toastify/dist/ReactToastify.css'; //
 import { ToastContainer } from 'react-toastify';
 import Navbar from '../components/Navbar.jsx';
 import AuthProvider from '@/components/AuthProvider';
 import Footer from '@/components/Footer';
 import { GlobalProvider } from '@/context/GlobalContext';
-import Head from 'next/head';
 
+// Styles
+import '../assets/styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Font configurations
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -21,9 +22,16 @@ const geistMono = localFont({
   weight: '100 900',
 });
 
+// Metadata configuration
 export const metadata = {
   title: 'GoMealSaver',
   description: 'GoMealSaver is a meal planner and grocery list app.',
+  applicationName: 'GoMealSaver',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+  },
+  manifest: '/manifest.json',
   icons: {
     icon: [
       {
@@ -63,30 +71,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <AuthProvider>
-      <GlobalProvider>
-        <html lang="en">
-          <Head>
-            <meta name="application-name" content="GoMealSaver" />
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-            <meta
-              name="apple-mobile-web-app-status-bar-style"
-              content="default"
-            />
-            <meta name="theme-color" content="#ffffff" />
-            <link rel="manifest" href="../public/manifest.json" />
-            <link rel="apple-touch-icon" href="../assets/images/logo.jpg" />
-          </Head>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <AuthProvider>
+          <GlobalProvider>
             <Navbar />
             <main>{children}</main>
             <Footer />
             <ToastContainer />
-          </body>
-        </html>
-      </GlobalProvider>
-    </AuthProvider>
+          </GlobalProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 }
