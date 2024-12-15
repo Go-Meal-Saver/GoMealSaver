@@ -42,7 +42,7 @@ const MealContactForm = ({ meal }) => {
       <div className="max-w-md mx-auto  md:max-w-2xl">
         <div className="p-8">
           <h3 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
-            Contact Meal Manager
+            Contact Meal Seller
           </h3>
 
           <form action={formAction} className="space-y-6">

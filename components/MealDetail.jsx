@@ -93,6 +93,19 @@ export default function MealDetail({ meal }) {
                 Hemat Rp.{(meal.originalPrice - meal.price).toFixed(2)}
               </p>
             </div>
+
+            {/* Checkout Button */}
+            {meal.available && (
+              <div className="mt-4">
+                <a
+                  href={`/meals/checkout/${meal._id}`}
+                  className="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300 flex items-center justify-center gap-2 font-semibold"
+                >
+                  <FaShoppingCart className="text-lg" />
+                  Checkout Now
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Quick Info */}
