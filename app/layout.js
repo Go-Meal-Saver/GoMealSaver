@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+
 import '../assets/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css'; //
 import { ToastContainer } from 'react-toastify';
@@ -21,8 +22,43 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: 'Go Meal Saver',
-  description: 'Go Meal Saver',
+  title: 'GoMealSaver',
+  description: 'GoMealSaver is a meal planner and grocery list app.',
+  icons: {
+    icon: [
+      {
+        url: '/manifest/favicon.ico',
+        sizes: 'any',
+      },
+      {
+        url: '/manifest/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+      },
+      {
+        url: '/manifest/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: '/manifest/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
+    other: [
+      {
+        rel: 'android-chrome-192x192',
+        url: '/manifest/android-chrome-192x192.png',
+      },
+      {
+        rel: 'android-chrome-512x512',
+        url: '/manifest/android-chrome-512x512.png',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
