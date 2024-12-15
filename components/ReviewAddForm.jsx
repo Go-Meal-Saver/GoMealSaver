@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Star, Send } from 'lucide-react';
+import { Star, Send, Ticket, Utensils } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { addReview } from '@/app/actions/addReview';
 
@@ -18,12 +18,11 @@ const AddReviewForm = ({ order }) => {
     setIsSubmitting(true);
 
     try {
-      // Pastikan menambahkan meal ke data yang dikirim
       const result = await addReview(order.transaction, {
         rating,
         review,
         name: order.name,
-        meal: order.meal, // Tambahkan meal ID
+        meal: order.meal,
       });
 
       if (result && result.redirect) {
@@ -31,13 +30,10 @@ const AddReviewForm = ({ order }) => {
         return;
       }
 
-      // If successful, redirect to orders page
       router.push('/orders');
 
-      // Reset form setelah submit berhasil
       setRating(0);
       setReview('');
-      // Opsional: Tambahkan notifikasi sukses atau redirect
     } catch (error) {
       console.error('Error submitting review:', error);
       setError(error.message || 'An unexpected error occurred');
@@ -47,7 +43,7 @@ const AddReviewForm = ({ order }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-2xl mx-auto p-6 mt-20 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Add Your Review</h2>
 
       {error && (
@@ -56,29 +52,24 @@ const AddReviewForm = ({ order }) => {
         </div>
       )}
 
+      <div className="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+        <div className="flex items-center space-x-3">
+          <Ticket className="w-6 h-6 text-gray-500" />
+          <div>
+            <p className="text-sm font-medium text-gray-600">Transaction ID</p>
+            <p className="font-semibold text-gray-800">{order.transaction}</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-3">
+          <Utensils className="w-6 h-6 text-gray-500" />
+          <div>
+            <p className="text-sm font-medium text-gray-600">Meal ID</p>
+            <p className="font-semibold text-gray-800">{order.meal}</p>
+          </div>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
-            Transaction ID
-          </label>
-          <input
-            type="text"
-            value={order.transaction}
-            readOnly
-            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-          />
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
-            Meal ID
-          </label>
-          <input
-            type="text"
-            value={order.meal}
-            readOnly
-            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-          />
-        </div>
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700">
             Username

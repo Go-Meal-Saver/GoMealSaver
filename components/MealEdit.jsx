@@ -81,7 +81,7 @@ export default function MealEditPage({ meal }) {
         </label>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
-            <label htmlFor="originalPrice">Original Price ($)</label>
+            <label htmlFor="originalPrice">Price (Rp)</label>
             <input
               type="number"
               id="originalPrice"
@@ -106,7 +106,7 @@ export default function MealEditPage({ meal }) {
             />
           </div>
           <div>
-            <label htmlFor="price">Final Price ($)</label>
+            <label htmlFor="price">Final Price (Rp)</label>
             <input
               type="number"
               id="price"
