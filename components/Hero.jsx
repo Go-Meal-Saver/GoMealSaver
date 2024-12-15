@@ -17,15 +17,6 @@ export default function Hero() {
               "Transform yesterday's meals into today's delights. Save money while enjoying tasty, sustainable food options."
             }
           </p>
-
-          <div className="mt-8 flex justify-center space-x-4">
-            <button className="px-8 py-3 text-lg font-medium rounded-full bg-white text-green-800 hover:bg-green-100 transition-all duration-300 transform hover:scale-105">
-              Browse Affordable Meals
-            </button>
-            <button className="px-8 py-3 text-lg font-medium rounded-full border-2 border-white text-white hover:bg-white hover:text-green-800 transition-all duration-300">
-              Save Food & Money
-            </button>
-          </div>
         </div>
         <SearchMeals />
       </div>

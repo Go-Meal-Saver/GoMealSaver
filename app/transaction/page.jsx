@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import TransactionCard from '@/components/TrancsactionCard';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';
