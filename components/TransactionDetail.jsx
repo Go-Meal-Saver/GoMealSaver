@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { cancelOrder } from '@/app/actions/cancelOrder';
 import { processOrder } from '@/app/actions/processOrder';
 
 export default function TransactionDetailPage({ transaction, meal }) {
   const [orderStatus, setOrderStatus] = useState(transaction.status);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
   const [error, setError] = useState('');
   process;
   const handleStatusChange = async () => {
@@ -26,6 +28,26 @@ export default function TransactionDetailPage({ transaction, meal }) {
       console.error('Error handling status change:', error);
     } finally {
       setIsProcessing(false);
+    }
+  };
+  const handleStatusCancle = async () => {
+    try {
+      setIsCancelling(true);
+      setError('');
+
+      if (orderStatus === 'pending') {
+        const result = await cancelOrder(transaction._id);
+        if (result.success) {
+          setOrderStatus('cancelled');
+        } else {
+          setError(result.error || 'Failed to cancelled order');
+        }
+      }
+    } catch (error) {
+      setError('An unexpected error occurred');
+      console.error('Error handling status change:', error);
+    } finally {
+      setIsCancelling(false);
     }
   };
 
@@ -50,11 +72,28 @@ export default function TransactionDetailPage({ transaction, meal }) {
                   ? 'bg-blue-100 text-blue-800'
                   : orderStatus === 'completed'
                   ? 'bg-green-100 text-green-800'
+                  : orderStatus === 'cancelled'
+                  ? 'bg-red-100 text-red-800'
                   : 'bg-red-100 text-red-800'
               }`}
             >
               {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
             </span>
+            {orderStatus === 'pending' && (
+              <button
+                onClick={handleStatusCancle}
+                disabled={isCancelling}
+                className={`px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold 
+                  ${
+                    isCancelling
+                      ? 'opacity-50 cursor-not-allowed'
+                      : 'hover:bg-blue-600'
+                  } 
+                  transition-colors duration-200`}
+              >
+                {isCancelling ? 'Processing...' : 'Mark as Cancelling'}
+              </button>
+            )}
             {orderStatus === 'pending' && (
               <button
                 onClick={handleStatusChange}
