@@ -71,7 +71,6 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="w-full lg:w-1/2 flex justify-center relative"
           >
-            <div className="bg-hero" />
             <Image
               src={ImageHero}
               alt="Go Meal Saver Illustration"
