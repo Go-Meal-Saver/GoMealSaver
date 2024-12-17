@@ -41,7 +41,7 @@ const MessagesPage = async () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-8">
+            <div className="bg-fern-green-600 px-6 py-8">
               <h1 className="text-3xl font-bold text-white flex items-center gap-3">
                 <FaInbox className="w-8 h-8" />
                 Your Messages
