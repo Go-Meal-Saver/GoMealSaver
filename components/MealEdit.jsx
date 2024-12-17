@@ -4,7 +4,7 @@ export default function MealEditPage({ meal }) {
 
   return (
     <form action={updateMealById} className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl text-center font-semibold mb-6">Add New Meal</h2>
+      <h2 className="text-3xl text-center font-semibold mb-6">Update Meal</h2>
 
       {/* Basic Meal Info */}
       <div className="mb-4">
