@@ -6,10 +6,10 @@
   .bg-hero {
     width: 2000px;
     height: 300px;
-    left: 30%;
+    left: 60%;
     position: absolute;
     border-radius: 9999px 0 0 9999px;
-    top: 13rem;
+    top: 15rem;
     background-color: #9fc597;
   }
 
