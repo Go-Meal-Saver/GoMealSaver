@@ -148,6 +148,31 @@ export default function MealEditPage({ meal }) {
         </div>
       </div>
 
+      {/* New Stock and Orders Section */}
+      <div className="mb-4 bg-blue-50 p-4 rounded">
+        <label className="block text-gray-700 font-bold mb-2">
+          Stock and Order Information
+        </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="stockQuantity">Stock Quantity</label>
+            <input
+              type="number"
+              id="stockQuantity"
+              name="stockQuantity"
+              min="0"
+              className="border rounded w-full py-2 px-3"
+              defaultValue={meal.stockQuantity}
+              placeholder="Available stock quantity"
+              required
+            />
+          </div>
+        </div>
+        <p className="text-sm text-gray-500 mt-2">
+          Enter the current stock quantity and total orders for this meal.
+        </p>
+      </div>
+
       {/* Features */}
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">Features</label>
