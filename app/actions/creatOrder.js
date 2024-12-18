@@ -1,9 +1,9 @@
 'use server';
 
-import { getSessionUser } from '@/utils/getSessionUser';
+import { revalidatePath } from 'next/cache';
 import connectDB from '@/config/database';
 import Orders from '@/models/Orders';
-import { revalidatePath } from 'next/cache';
+import { getSessionUser } from '@/utils/getSessionUser';
 
 export async function createOrder(formData) {
   try {

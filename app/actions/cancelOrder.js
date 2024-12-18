@@ -1,7 +1,7 @@
 'use server';
-
-import Order from '@/models/Orders';
 import { revalidatePath } from 'next/cache';
+import Order from '@/models/Orders';
+
 export async function cancelOrder(transactionId) {
   try {
     // Validate input

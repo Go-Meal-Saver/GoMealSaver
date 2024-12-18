@@ -1,7 +1,7 @@
 'use client';
-import { useState, useRef } from 'react';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function RegisterPage() {

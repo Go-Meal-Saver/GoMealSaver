@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { BookmarkIcon, SearchHeartIcon } from 'lucide-react';
+
 import { FaBookmark, FaSearch } from 'react-icons/fa';
 import MealCard from '@/components/MealsCard';
 import connectDB from '@/config/database';
