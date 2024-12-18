@@ -8,14 +8,14 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/icon-192x192.png",
+      "src": "/manifest/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "../assets/manifest/logo_192.jpg"
+      "type": "image/png"
     },
     {
-      "src": "/icon-512x512.png",
+      "src": "/manifest/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "../assets/manifest/logo_512.jpg"
+      "type": "image/png"
     }
   ]
 }
