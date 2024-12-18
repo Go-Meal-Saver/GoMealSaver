@@ -1,11 +1,11 @@
 'use client';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import SenaImg from '@/assets/profile/sena.jpg';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import AbiImg from '@/assets/profile/abi.png';
 import AkbarImg from '@/assets/profile/akbar.jpg';
 import DodyImg from '@/assets/profile/dody.jpg';
-import AbiImg from '@/assets/profile/abi.png';
-import Image from 'next/image';
+import SenaImg from '@/assets/profile/sena.jpg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';

@@ -1,8 +1,8 @@
-import HeroSection from '@/components/about/HeroSection';
-import Features from '@/components/about/Features';
-import OurTeam from '@/components/about/Team';
 import Asked from '@/components/about/Asked';
+import Features from '@/components/about/Features';
+import HeroSection from '@/components/about/HeroSection';
 import Logowa from '@/components/about/LogoWa';
+import OurTeam from '@/components/about/Team';
 export default function AboutPage() {
   return (
     <>

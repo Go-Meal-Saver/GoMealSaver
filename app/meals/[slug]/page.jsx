@@ -1,7 +1,6 @@
 import { isValidObjectId } from 'mongoose';
 import connectDB from '@/config/database';
 import Meal from '@/models/Meals';
-import Review from '@/models/Review';
 import MealDetail from '@/components/MealDetail';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';

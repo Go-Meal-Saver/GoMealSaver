@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import deleteMeal from '@/app/actions/deleteMeal';
 import { toast } from 'react-toastify';
-import { FiEdit2, FiTrash2, FiEye } from 'react-icons/fi';
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 export default function ProfileMeals({ meals: initialMeals }) {
   const [meals, setMeals] = useState(initialMeals);

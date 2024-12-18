@@ -1,9 +1,8 @@
 'use server';
-
+import { revalidatePath } from 'next/cache';
 import connectDB from '@/config/database';
 import Message from '@/models/Message';
 import { getSessionUser } from '@/utils/getSessionUser';
-import { revalidatePath } from 'next/cache';
 
 async function deleteMessage(messageId) {
   await connectDB();
