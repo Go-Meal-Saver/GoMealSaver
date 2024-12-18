@@ -2,6 +2,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import SenaImg from '@/assets/profile/sena.jpg';
+import AkbarImg from '@/assets/profile/akbar.jpg';
+import DodyImg from '@/assets/profile/dody.jpg';
+import AbiImg from '@/assets/profile/abi.png';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,55 +14,44 @@ const CustomerReviews = () => {
   const reviews = [
     {
       id: 1,
-      name: 'Rina Kartika',
+      name: 'Harsena Argretya',
       review:
-        '"GoMealSaver sangat membantu saya dalam menghemat uang dan mengurangi pemborosan makanan. Makanan yang didapat juga berkualitas dan segar!"',
+        '"GoMealSaver really helps me save money and reduce food wastage. The food is also high quality and fresh!"',
       location: 'Yogyakarta, Indonesia',
       image: SenaImg,
     },
     {
       id: 2,
-      name: 'Bambang Sutrisno',
+      name: 'Muhamad Akbar Algifahri',
       review:
-        '"Aplikasi ini benar-benar solusi untuk menghindari limbah makanan. Diskonnya besar, dan saya puas dengan layanan yang diberikan."',
-      location: 'Medan, Indonesia',
-      image: SenaImg,
+        '"This app is really a solution to avoid food waste. The discounts are great, and I am satisfied with the service provided."',
+      location: 'Jakarta, Indonesia',
+      image: AkbarImg,
     },
     {
       id: 3,
-      name: 'Nur Aisyah',
+      name: 'Dody Pramansyah Sianipar',
       review:
-        '"Saya suka konsep ramah lingkungan dari GoMealSaver. Dengan membawa wadah sendiri, saya bisa dapat cashback dan merasa ikut berkontribusi untuk lingkungan."',
-      location: 'Malang, Indonesia',
-      image: SenaImg,
+        '"I love the eco-friendly concept of GoMealSaver. By bringing my own containers, I can earn cashback and feel like Im contributing to the environment."',
+      location: 'Medan, Indonesia',
+      image: DodyImg,
     },
     {
       id: 4,
-      name: 'Eko Prasetyo',
+      name: 'Abigael Haidar Cyayyidina Avianto',
       review:
-        '"Mudah, praktis, dan ekonomis! GoMealSaver membuat saya bisa mendapatkan makanan lezat dengan harga lebih murah.',
-      location: 'Semarang, Indonesia"',
-      image: SenaImg,
-    },
-    {
-      id: 5,
-      name: 'Siti Rohmah',
-      review:
-        '"Banyak pilihan lokasi untuk pengambilan makanan, jadi sangat praktis. Saya sangat merekomendasikan GoMealSaver untuk semua orang!"',
-      location: 'Makassar, Indonesia',
-      image: SenaImg,
+        '"Easy, practical and economical! GoMealSaver allows me to get delicious food at a lower price.',
+      location: 'Yogyakarta, Indonesia"',
+      image: AbiImg,
     },
   ];
 
   return (
     <div className="py-40">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Judul */}
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-          Apa Kata Mereka?
+          What do they say?
         </h2>
-
-        {/* Swiper Slider */}
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
           spaceBetween={30}
