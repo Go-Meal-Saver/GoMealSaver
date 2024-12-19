@@ -72,8 +72,6 @@ export default function TransactionDetailPage({ transaction, meal }) {
                   ? 'bg-blue-100 text-blue-800'
                   : orderStatus === 'completed'
                   ? 'bg-green-100 text-green-800'
-                  : orderStatus === 'cancelled'
-                  ? 'bg-red-100 text-red-800'
                   : 'bg-red-100 text-red-800'
               }`}
             >
@@ -91,7 +89,7 @@ export default function TransactionDetailPage({ transaction, meal }) {
                   } 
                   transition-colors duration-200`}
               >
-                {isCancelling ? 'Processing...' : 'Mark as Cancelling'}
+                {isCancelling ? 'Cancelling...' : 'Mark as Cancelling'}
               </button>
             )}
             {orderStatus === 'pending' && (

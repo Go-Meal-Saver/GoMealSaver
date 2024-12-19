@@ -2,7 +2,7 @@ import Hero from '@/components/Hero';
 import HomeMealsPage from '@/components/HomeMeals';
 import InfoBoxes from '@/components/InfoBoxs';
 import HomeSection from '@/components/HomeSection';
-import CustomerReviews from '@/components/ReviewHome';
+import TestimonialSection from '@/components/TestimonialPage';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <InfoBoxes />
       <HomeMealsPage />
       <HomeSection />
-      <CustomerReviews />
+      <TestimonialSection />
     </>
   );
 }

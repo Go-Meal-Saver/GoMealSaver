@@ -20,7 +20,7 @@ const GoMealSaver = () => {
           <div className="space-y-6">
             {/* Feature 1 */}
             <div className="flex items-start gap-4">
-              <div className="bg-green-500 text-white p-3 rounded-full flex-shrink-0">
+              <div className="bg-fern-green-600 text-white p-3 rounded-full flex-shrink-0">
                 <FaMoneyBillAlt className="h-6 w-6" />
               </div>
               <div>
@@ -35,7 +35,7 @@ const GoMealSaver = () => {
             </div>
             {/* Feature 2 */}
             <div className="flex items-start gap-4">
-              <div className="bg-green-500 text-white p-3 rounded-full flex-shrink-0">
+              <div className="bg-fern-green-600 text-white p-3 rounded-full flex-shrink-0">
                 <FaMapMarkedAlt className="h-6 w-6" />
               </div>
               <div>
@@ -50,7 +50,7 @@ const GoMealSaver = () => {
             </div>
             {/* Feature 3 */}
             <div className="flex items-start gap-4">
-              <div className="bg-green-500 text-white p-3 rounded-full flex-shrink-0">
+              <div className="bg-fern-green-600 text-white p-3 rounded-full flex-shrink-0">
                 <FaHandHoldingHeart className="h-6 w-6" />
               </div>
               <div>
@@ -65,7 +65,7 @@ const GoMealSaver = () => {
             </div>
             {/* Feature 4 */}
             <div className="flex items-start gap-4">
-              <div className="bg-green-500 text-white p-3 rounded-full flex-shrink-0">
+              <div className="bg-fern-green-600 text-white p-3 rounded-full flex-shrink-0">
                 <FaLeaf className="h-6 w-6" />
               </div>
               <div>

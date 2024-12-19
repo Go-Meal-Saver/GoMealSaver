@@ -52,9 +52,10 @@ const teamMembers = [
       'SIB Front-End and Back-End Developer Cycle 7 at Dicoding Indonesia',
     image: AbiImg,
     social: {
-      Instagram: 'https://Instagram.com/davidpark',
-      linkedin: 'https://www.linkedin.com/in/davidpark/',
-      github: 'https://github.com/davidpark',
+      Instagram:
+        'https://www.instagram.com/abigael_haidar/profilecard/?igsh=eTdzMzl4MG1zbGxp',
+      linkedin: 'https://www.linkedin.com/in/abigael-haidar-29639a147/',
+      github: 'https://github.com/abigaelhaidar',
     },
   },
 ];

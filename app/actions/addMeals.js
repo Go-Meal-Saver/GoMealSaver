@@ -25,7 +25,7 @@ async function addMeals(formData) {
   }
 
   const mealsData = {
-    owner: userId, // Use the ID from session
+    owner: userId,
     name: formData.get('name'),
     stockQuantity: Number(formData.get('stockQuantity')),
     cuisine: formData.get('cuisine'),
@@ -80,8 +80,8 @@ async function addMeals(formData) {
     }
   }
 
-  // Assign the first image as the main image
-  mealsData.image = imageUrls[0];
+  // // Assign the first image as the main image
+  mealsData.image = imageUrls;
 
   const newMeals = new Meal(mealsData);
   await newMeals.save();

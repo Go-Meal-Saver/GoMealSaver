@@ -10,6 +10,7 @@ import BookmarkButton from '@/components/BookmarkButton';
 import ShareButton from '@/components/ShareButton';
 import MealContactForm from '@/components/MealContactForm';
 import ReviewPage from '@/components/Review';
+import MealsImages from '@/components/MealsImages';
 
 export default async function MealPage({ params }) {
   await connectDB();
@@ -110,28 +111,33 @@ export default async function MealPage({ params }) {
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 mb-8">
             {/* Meal Details Section */}
             <div className="lg:col-span-2">
-              <div className="rounded-2xl bg-white p-8 shadow-2xl">
+              <div className="rounded-2xl bg-white p-8 shadow-xl">
                 <MealDetail meal={meal} />
               </div>
             </div>
 
             {/* Sidebar Section */}
-            <div className="lg:col-span-1 space-y-8">
+            <div className="lg:col-span-1">
               {/* Booking and Interaction Buttons */}
-              <div className="rounded-2xl bg-white p-6 shadow-2xl">
+              <div className="rounded-2xl bg-white p-6 shadow-xl">
                 <div className="space-y-4">
                   <BookmarkButton meal={meal} />
                   <ShareButton meal={meal} />
                   <MealContactForm meal={meal} />
                 </div>
               </div>
-
-              {/* Reviews Section */}
-              <ReviewPage mealId={meal._id} />
             </div>
+          </div>
+          <div>
+            <MealsImages images={meal.image} />
+          </div>
+
+          {/* Reviews Section - Now at the bottom */}
+          <div className="w-full shadow-xl">
+            <ReviewPage mealId={meal._id} />
           </div>
         </div>
       </div>
