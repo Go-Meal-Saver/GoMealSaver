@@ -10,6 +10,7 @@ import BookmarkButton from '@/components/BookmarkButton';
 import ShareButton from '@/components/ShareButton';
 import MealContactForm from '@/components/MealContactForm';
 import ReviewPage from '@/components/Review';
+import MealsImages from '@/components/MealsImages';
 
 export default async function MealPage({ params }) {
   await connectDB();
@@ -129,6 +130,9 @@ export default async function MealPage({ params }) {
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            <MealsImages images={meal.image} />
           </div>
 
           {/* Reviews Section - Now at the bottom */}

@@ -290,8 +290,9 @@ export default function MealAddForm() {
           required
         />
         <p className="text-sm text-gray-500 mt-1">
-          Upload at least one image of your meal. First image will be used as
-          the main image.
+          Upload at least one image of your meal. The first image will be used
+          as the profile image, and the second image will be used as the
+          background image.
         </p>
       </div>
 
