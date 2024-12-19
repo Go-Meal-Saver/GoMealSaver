@@ -50,7 +50,7 @@ Demo : https://gomealsaver.store
 - [x] Next.js Action
 ## 🤸 Quick Start
 
-Follow these steps to set up the project locally on your machine.
+Ikuti langkah-langkah berikut untuk menyiapkan proyek secara lokal pada mesin Anda.
 
 - Git
 - Node.js
@@ -62,14 +62,14 @@ https://github.com/Go-Meal-Saver/GoMealSaver.git cd GoMealSaver
 
 Installation
 
-Install the project dependencies using npm:
+Instal dependensi proyek menggunakan npm:
 
 ```bash
 npm run dev
 ```
 
 Set Up Environment Variables
-Create a new file named .env.local in the root of your project and add the following content:
+CBuat berkas baru bernama .env di root proyek Anda dan tambahkan konten berikut:
 
 ```bash
 MONGODB_URL =
@@ -91,25 +91,25 @@ RECAPTCHA_SECRET_KEY=
 
 ### `.env` File
 
-Rename the `env.example` file to `.env` and fill in the following environment variables:
+Ubah nama `env.example` file ke `.env` dan isi env berikut ini:
 
-- Get your MongoDB connection string from your MongoDB Atlas cluster and add it to `MONGODB_URI`.
-- Get your Google client ID and secret from your Google console account and add them to `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
-- Add a secret to `NEXTAUTH_SECRET`. You can generate with the following command:
+- Dapatkan string koneksi MongoDB Anda dari klaster MongoDB Atlas Anda dan tambahkan ke `MONGODB_URI`.
+- Dapatkan ID dan rahasia klien Google Anda dari akun konsol Google dan tambahkan ke `GOOGLE_CLIENT_ID` dan `GOOGLE_CLIENT_SECRET`.
+- Tambahkan rahasia ke `NEXTAUTH_SECRET`. Anda dapat membuat dengan perintah berikut ini:
   ```bash
   openssl rand -base64 32
   ```
-- Get your Cloudinary cloud name, API key, and API secret from your Cloudinary account and add them to `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`.
-- Get your OPENCAGE token from your OPENCAGE account and add it to `NEXT_PUBLIC_OPENCAGE_API_KEY`.
-- Get your Google MAPTILER API key from your MAPTILER and add it to `NEXT_PUBLIC_MAPTILER_API_KEY`.
-- Get your Google RECAPTCHA API key from your RECAPTCHA and add it to `RECAPTCHA_SECRET_KEY`.
+- Dapatkan nama cloud Cloudinary, kunci API, dan rahasia API dari akun Cloudinary Anda dan tambahkan ke `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, dan `CLOUDINARY_API_SECRET`.
+- Dapatkan token OPENCAGE Anda dari akun OPENCAGE Anda dan tambahkan ke `NEXT_PUBLIC_OPENCAGE_API_KEY`.
+- Dapatkan kunci API Google MAPTILER Anda dari MAPTILER Anda dan tambahkan ke`NEXT_PUBLIC_MAPTILER_API_KEY`.
+- Dapatkan kunci API Google RECAPTCHA Anda dari RECAPTCHA Anda dan tambahkan ke`RECAPTCHA_SECRET_KEY`.
 
-Running the Project
+Menjalankan Proyek
 
 ```bash
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser to view the project.
+Buka http://localhost:3000 di browser Anda untuk melihat proyek
 
 
