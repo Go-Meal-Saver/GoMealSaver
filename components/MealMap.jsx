@@ -33,13 +33,10 @@ const MealMap = ({ meal }) => {
           setLng(place.geometry.lng);
           setLoading(false);
         } else {
-          console.log('Status', data.status.message);
-          console.log('total_results', data.total_results);
           setLoading(false);
           setGeoCodeError(true);
         }
       } catch (error) {
-        console.log('Error', error.message);
         setLoading(false);
         setGeoCodeError(true);
 

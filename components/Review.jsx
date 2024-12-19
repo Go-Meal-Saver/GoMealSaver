@@ -11,7 +11,7 @@ export default async function MealReview({ mealId }) {
 
   try {
     await connectDB();
-    console.log('Searching for reviews with mealId:', mealId);
+
     const reviewDocs = await Review.find({ meal: mealId }).lean();
 
     if (!reviewDocs || reviewDocs.length === 0) {
