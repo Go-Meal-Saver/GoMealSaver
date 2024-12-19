@@ -121,7 +121,7 @@ export default function Asked() {
               onClick={() => handleTabClick(3)}
             >
               <div className="transition duration-500 ease group-hover:text-fern-green-500">
-                Bagaimana sistem chat di GomealSaver bekerja?
+                How does the GomealSaver chat system work?
               </div>
               <div
                 className={`transition duration-500 ease ${
