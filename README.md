@@ -57,7 +57,7 @@ Follow these steps to set up the project locally on your machine.
 - npm (Node Package Manager)
 
 ```bash
-git clone https://github.com/Anezz12/v1.0.git cd v1.0
+https://github.com/Go-Meal-Saver/GoMealSaver.git cd GoMealSaver
 ```
 
 Installation
