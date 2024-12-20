@@ -84,17 +84,15 @@ export const authOptions = {
   ],
 
   // Callbacks
+  // Modifikasi callbacks di authOptions
   callbacks: {
-    // Handle sign-in for both OAuth and Credentials
     async signIn({ account, profile, user }) {
       try {
         await connectDB();
 
-        // Handle Google OAuth sign-in
         if (account?.provider === 'google') {
           const userExists = await User.findOne({ email: profile.email });
 
-          // Create user if not exists
           if (!userExists) {
             const username = profile.name
               .slice(0, 20)
@@ -104,6 +102,7 @@ export const authOptions = {
             await User.create({
               email: profile.email,
               username: username,
+              name: profile.name, // Tambahkan name dari Google profile
               image: profile.picture,
             });
           }
@@ -116,18 +115,20 @@ export const authOptions = {
       }
     },
 
-    // Modify session to include additional user info
     async session({ session, token }) {
       try {
         await connectDB();
 
-        // Find user and add additional details to session
         const user = await User.findOne({ email: session.user.email });
 
         if (user) {
-          session.user.id = user._id.toString();
-          session.user.username = user.username;
-          session.user.image = user.image;
+          session.user = {
+            ...session.user,
+            id: user._id.toString(),
+            username: user.username,
+            name: user.name || user.username, // Gunakan username sebagai fallback
+            image: user.image,
+          };
         }
 
         return session;
@@ -137,12 +138,11 @@ export const authOptions = {
       }
     },
 
-    // JWT callback to add user information to token
     async jwt({ token, user, account, profile }) {
-      // Add user information to token during sign-in
       if (user) {
         token.id = user.id;
         token.username = user.username;
+        token.name = user.name || user.username; // Tambahkan name ke token
       }
       return token;
     },
