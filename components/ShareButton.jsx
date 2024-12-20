@@ -21,14 +21,14 @@ export default function ShareButton({ meal }) {
         <FacebookShareButton
           url={shareUrl}
           quote={meal.name}
-          hashtag={`#${meal.cuisine.replace(/\s/g, '')}forRent`}
+          hashtag={`#${meal.cuisine.replace(/\s/g, '')}forBuy`}
         >
           <FacebookIcon size={40} round={true} />
         </FacebookShareButton>
         <TwitterShareButton
           url={shareUrl}
           title={meal.name}
-          hashtags={[`${meal.cuisine.replace(/\s/g, '')}forRent`]}
+          hashtags={[`${meal.cuisine.replace(/\s/g, '')}forBuy`]}
         >
           <TwitterIcon size={40} round={true} />
         </TwitterShareButton>
