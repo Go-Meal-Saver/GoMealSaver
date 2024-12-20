@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar.jsx';
 import AuthProvider from '@/components/AuthProvider';
 import Footer from '@/components/Footer';
 import { GlobalProvider } from '@/context/GlobalContext';
-
 // Styles
 import '../assets/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,6 +26,9 @@ export const metadata = {
   title: 'GoMealSaver',
   description: 'GoMealSaver is a meal planner and grocery list app.',
   applicationName: 'GoMealSaver',
+  other: {
+    'dicoding:email': 'harsenaargrtya1@gmail.com',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
