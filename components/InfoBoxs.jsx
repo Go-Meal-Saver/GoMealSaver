@@ -24,7 +24,7 @@ export default function InfoBoxes() {
               backgroundColor="bg-green-100"
               textColor="text-green-800"
               buttonInfo={{
-                text: 'List Surplus Food',
+                text: 'List GoMeal Food',
                 link: '/meals/add',
                 backgroundColor: 'bg-green-600 hover:bg-green-700',
               }}
