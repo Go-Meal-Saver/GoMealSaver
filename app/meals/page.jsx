@@ -4,10 +4,7 @@ import connectDB from '@/config/database';
 import Meal from '@/models/Meals';
 export default async function AddMealsPage() {
   await connectDB();
-  const recentMeals = await Meal.find({})
-    .sort({ createdAt: -1 })
-    .limit(3)
-    .lean();
+  const recentMeals = await Meal.find({}).sort({ createdAt: -1 }).lean();
 
   return (
     <>
