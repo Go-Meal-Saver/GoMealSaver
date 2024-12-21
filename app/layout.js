@@ -23,8 +23,8 @@ const geistMono = localFont({
 
 // Metadata configuration
 export const metadata = {
-  title: 'GoMealSaver',
-  description: 'GoMealSaver is a meal planner and grocery list app.',
+  title: 'Go Meal Saver',
+  description: 'Go Meal Saver is a meal planner and grocery list app.',
   applicationName: 'GoMealSaver',
   other: {
     'dicoding:email': 'harsenaargrtya1@gmail.com',
