@@ -65,7 +65,7 @@ Installation
 Instal dependensi proyek menggunakan npm:
 
 ```bash
-npm run dev
+npm i
 ```
 
 Set Up Environment Variables
@@ -91,7 +91,6 @@ RECAPTCHA_SECRET_KEY=
 
 ### `.env` File
 
-Ubah nama `env.example` file ke `.env` dan isi env berikut ini:
 
 - Dapatkan string koneksi MongoDB Anda dari klaster MongoDB Atlas Anda dan tambahkan ke `MONGODB_URI`.
 - Dapatkan ID dan rahasia klien Google Anda dari akun konsol Google dan tambahkan ke `GOOGLE_CLIENT_ID` dan `GOOGLE_CLIENT_SECRET`.
