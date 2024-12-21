@@ -17,7 +17,7 @@ async function bookmarkMeal(mealId) {
   // Find user in the database
   const user = await User.findById(userId);
 
-  //Check if the property is already bookmarked
+  //Check if the meals is already bookmarked
   let isBookmarked = user.bookmarks.includes(mealId);
 
   let message;
