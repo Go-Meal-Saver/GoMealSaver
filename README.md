@@ -24,6 +24,7 @@ Demo : https://gomealsaver.store
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [framer-motion](https://motion.dev/)
 - [typed.js](https://mattboldt.com/demos/typed-js/)
+- [React Slick](https://react-slick.neostack.com/)
 
 ## 🔋 Features
 
