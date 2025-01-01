@@ -27,7 +27,6 @@ export default async function EditPage({ params }) {
   }).lean();
   const meal = convertToSerializedObject(mealDoc);
 
-  // Handle meal not found
   if (!meal) {
     return (
       <>
