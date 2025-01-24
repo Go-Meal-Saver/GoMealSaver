@@ -7,7 +7,6 @@ import Meal from '@/models/Meals';
 import NotFound from '@/app/not-found';
 
 export default async function EditPage({ params }) {
-  // Redirect to login if not authenticated
   const sessionUser = await getSessionUser();
 
   if (!sessionUser) {
@@ -28,7 +27,6 @@ export default async function EditPage({ params }) {
   }).lean();
   const meal = convertToSerializedObject(mealDoc);
 
-  // Handle meal not found
   if (!meal) {
     return (
       <>
